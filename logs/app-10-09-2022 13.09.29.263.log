@@ -1,4 +1,0 @@
-2022-09-10 13:59:29,330 INFO c.s.a.p.Person [com.solvd.app.pc.Main.main()] From: ilia lataria @Status - Online
-2022-09-10 13:59:29,332 INFO c.s.a.p.Person [com.solvd.app.pc.Main.main()] From: Jack Daniels @Status - Online
-2022-09-10 13:59:29,333 INFO c.s.a.p.Person [com.solvd.app.pc.Main.main()] Person: ilia lataria,as: 593138131
-2022-09-10 13:59:38,548 INFO c.s.a.p.Battery$1 [Thread-1] Emergency!! to Jack Daniels:  Battery is less than 15%

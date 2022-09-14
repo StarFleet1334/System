@@ -18,7 +18,7 @@ public class FileTask {
 
     static String second = "The fish listened intently to what the frogs had to say.";
 
-    static File file = new File("task.txt");
+    static File file = new File("fileTask/task.txt");
 
     public static void main(String[] args) {
         clean();
