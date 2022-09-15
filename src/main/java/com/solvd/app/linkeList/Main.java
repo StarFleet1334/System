@@ -18,7 +18,8 @@ public class Main{
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws InterruptedException, IOException, SQLException {
-
+        UsersDao usersDao = new UsersDao();
+        usersDao.create(new Users(1,"Tamar Mefe",25,new Phones( 3,"David abramia","551764456")));
     }
 }
 

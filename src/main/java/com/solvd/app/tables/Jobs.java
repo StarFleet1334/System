@@ -10,6 +10,10 @@ public class Jobs {
 
     public Jobs() {}
 
+    public Jobs(int id) {
+        this.id = id;
+    }
+
     public Jobs(int id,String name,String description,CodeSalaries code) {
         this.id = id;
         this.name = name;

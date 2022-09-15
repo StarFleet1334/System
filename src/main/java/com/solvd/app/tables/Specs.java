@@ -11,6 +11,10 @@ public class Specs {
 
     public Specs() {}
 
+    public Specs(int id) {
+        this.id = id;
+    }
+
     public Specs(int id,String operating_system,String model,int memory,String system_manufacturer) {
         this.id = id;
         this.operating_system = operating_system;

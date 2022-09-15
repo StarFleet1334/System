@@ -143,7 +143,18 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             if (users.getPhone() == null) {
                 preparedStatement.setNull(3,4);
             } else {
-                phonesDao.create(new Phones(users.getPhone().getId(),users.getPhone().getFull_name(),users.getPhone().getPhone_number()));
+
+                List<Phones> phones = phonesDao.getAll();
+                boolean check = false;
+                for (Phones phone : phones) {
+                    if (phone.getId() == users.getPhone().getId()) {
+                        check = true;
+                        break;
+                    }
+                }
+                if (!check) {
+                    phonesDao.create(new Phones(users.getPhone().getId(),users.getPhone().getFull_name(),users.getPhone().getPhone_number()));
+                }
                 preparedStatement.setInt(3,users.getPhone().getId());
             }
             preparedStatement.executeUpdate();
@@ -153,6 +164,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
         } finally {
             connection.close();
             preparedStatement.close();
+            resultSet.close();
         }
     }
 }

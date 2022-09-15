@@ -129,7 +129,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Works` (
   `users_id` INT NOT NULL,
-  `Jobs_id_jobs` INT NOT NULL,
+  `jobs_id` INT NOT NULL,
   `start_date` TIMESTAMP(2) NOT NULL,
   INDEX `fk_Works_Users1_idx` (`users_id` ASC) VISIBLE,
   INDEX `fk_Works_Jobs1_idx` (`Jobs_id_jobs` ASC) VISIBLE,
@@ -221,8 +221,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Emails`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Emails` (
-  `Users_id` INT NOT NULL,
-  `EmailsStorage_id` INT NOT NULL,
+  `users_id` INT NOT NULL,
+  `emails_storage_id` INT NOT NULL,
   PRIMARY KEY (`Users_id`, `EmailsStorage_id`),
   INDEX `fk_Users_has_EmailsStorage_EmailsStorage1_idx` (`EmailsStorage_id` ASC) VISIBLE,
   INDEX `fk_Users_has_EmailsStorage_Users1_idx` (`Users_id` ASC) VISIBLE,
