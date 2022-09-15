@@ -1,7 +1,8 @@
 package com.solvd.app.dao.mysql;
 
-import com.solvd.app.connection.ConnectDatabase;
+
 import com.solvd.app.dao.IUserDao;
+import com.solvd.app.tables.Phones;
 import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -142,6 +143,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             if (users.getPhone() == null) {
                 preparedStatement.setNull(3,4);
             } else {
+                phonesDao.create(new Phones(users.getPhone().getId(),users.getPhone().getFull_name(),users.getPhone().getPhone_number()));
                 preparedStatement.setInt(3,users.getPhone().getId());
             }
             preparedStatement.executeUpdate();
