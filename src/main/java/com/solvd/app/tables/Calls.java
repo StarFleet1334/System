@@ -6,6 +6,13 @@ public class Calls {
     private Users users_id;
     private CallsStorage callsStorage_id;
 
+    public Calls() {}
+
+    public Calls(Users id,CallsStorage call_id) {
+        this.users_id = id;
+        this.callsStorage_id = call_id;
+    }
+
     public Users getUsers_id() {
         return users_id;
     }

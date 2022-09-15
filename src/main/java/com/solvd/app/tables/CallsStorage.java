@@ -7,6 +7,14 @@ public class CallsStorage {
     private Users from_user;
     private Users to_user;
 
+    public CallsStorage() {}
+
+    public CallsStorage(int id,Users from,Users to) {
+        this.id = id;
+        this.from_user = from;
+        this.to_user = to;
+    }
+
     public int getId() {
         return id;
     }

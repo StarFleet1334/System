@@ -6,6 +6,13 @@ public class CodeSalaries {
     private int id;
     private double salary;
 
+    public CodeSalaries() {}
+
+    public CodeSalaries(int id,double salary) {
+        this.id = id;
+        this.salary = salary;
+    }
+
     public int getId() {
         return id;
     }

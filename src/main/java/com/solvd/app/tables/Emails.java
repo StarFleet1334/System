@@ -6,6 +6,13 @@ public class Emails {
     private Users users_id;
     private EmailsStorage emailsStorage_id;
 
+    public Emails() {}
+
+    public Emails(Users users_id,EmailsStorage emailsStorage_id) {
+        this.users_id = users_id;
+        this.emailsStorage_id = emailsStorage_id;
+    }
+
     public Users getUsers_id() {
         return users_id;
     }

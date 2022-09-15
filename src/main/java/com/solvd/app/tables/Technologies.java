@@ -9,6 +9,16 @@ public class Technologies {
     private int leptop;
     private Specs specs;
 
+    public Technologies() {}
+
+    public Technologies(int id,String name,int pc,int leptop,Specs specs) {
+        this.id = id;
+        this.name = name;
+        this.pc = pc;
+        this.leptop = leptop;
+        this.specs = specs;
+    }
+
     public int getId() {
         return id;
     }

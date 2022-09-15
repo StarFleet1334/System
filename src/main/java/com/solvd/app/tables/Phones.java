@@ -7,6 +7,14 @@ public class Phones {
     private String full_name;
     private String phone_number;
 
+    public Phones() {}
+
+    public Phones(int id,String full_name,String phone_number) {
+        this.id = id;
+        this.full_name = full_name;
+        this.phone_number = phone_number;
+    }
+
     public int getId() {
         return id;
     }

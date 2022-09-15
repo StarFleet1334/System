@@ -8,6 +8,14 @@ public class Works {
     private Jobs jobs_id;
     private Date start_date;
 
+    public Works() {}
+
+    public Works(Users users_id,Jobs jobs_id,Date start_date) {
+        this.users_id = users_id;
+        this.jobs_id = jobs_id;
+        this.start_date = start_date;
+    }
+
     public Users getUsers_id() {
         return users_id;
     }

@@ -8,6 +8,15 @@ public class Users {
     private int age;
     private Phones phone;
 
+    public Users() {}
+
+    public Users(int id,String full_name,int age,Phones phone) {
+        this.id = id;
+        this.full_name = full_name;
+        this.age = age;
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }

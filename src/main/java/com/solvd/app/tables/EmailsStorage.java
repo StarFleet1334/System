@@ -10,6 +10,16 @@ public class EmailsStorage {
     private String text;
     private Date send_time;
 
+    public EmailsStorage() {}
+
+    public EmailsStorage(int id,Users from,Users to,String text,Date send_time) {
+        this.id = id;
+        this.email_from_user = from;
+        this.email_to_user = to;
+        this.text = text;
+        this.send_time = send_time;
+    }
+
 
     public int getId() {
         return id;

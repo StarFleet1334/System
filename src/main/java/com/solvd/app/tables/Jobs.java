@@ -8,6 +8,15 @@ public class Jobs {
     private String description;
     private CodeSalaries code;
 
+    public Jobs() {}
+
+    public Jobs(int id,String name,String description,CodeSalaries code) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.code = code;
+    }
+
     public int getId() {
         return id;
     }

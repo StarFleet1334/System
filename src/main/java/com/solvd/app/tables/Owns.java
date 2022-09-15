@@ -7,6 +7,14 @@ public class Owns {
     private Technologies technologies_id;
     private String name;
 
+    public Owns() {}
+
+    public Owns(Users users_id,Technologies technologies_id,String name) {
+        this.users_id = users_id;
+        this.technologies_id = technologies_id;
+        this.name = name;
+    }
+
 
     public Users getUsers_id() {
         return users_id;

@@ -9,6 +9,16 @@ public class Specs {
     private int memory;
     private String system_manufacturer;
 
+    public Specs() {}
+
+    public Specs(int id,String operating_system,String model,int memory,String system_manufacturer) {
+        this.id = id;
+        this.operating_system = operating_system;
+        this.model = model;
+        this.memory = memory;
+        this.system_manufacturer = system_manufacturer;
+    }
+
     public int getId() {
         return id;
     }
