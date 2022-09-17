@@ -62,6 +62,16 @@ public class Jobs {
     }
 
     @Override
+    public String toString() {
+        return "Jobs{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", salary=" + code.getSalary() +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, name, description, code);
     }
