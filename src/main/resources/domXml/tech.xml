@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Tech>
-    <Leptop id="1">
+<tech>
+    <leptop id="1">
         <name>Dell</name>
-        <Specs id="11">
+        <specs id="11">
             <operating_system>Windows 10</operating_system>
             <model>Inspirion 15 5508</model>
             <memory>16</memory>
             <system_manufacturer>Dell</system_manufacturer>
-        </Specs>
-    </Leptop>
-    <Leptop id="2">
+        </specs>
+    </leptop>
+    <leptop id="2">
         <name>MacBook</name>
-        <Specs id="22">
+        <specs id="22">
             <operating_system>Mac os</operating_system>
             <model>Pro 13</model>
             <memory>8</memory>
             <system_manufacturer>Apple</system_manufacturer>
-        </Specs>
-    </Leptop>
-    <Leptop id="3">
+        </specs>
+    </leptop>
+    <leptop id="3">
         <name>Hp</name>
-        <Specs id="33">
+        <specs id="33">
             <operating_system>Windows 10</operating_system>
             <model>ZBook Studio G8</model>
             <memory>16</memory>
             <system_manufacturer>Hp</system_manufacturer>
-        </Specs>
-    </Leptop>
-</Tech>
+        </specs>
+    </leptop>
+</tech>

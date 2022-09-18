@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="tech">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="leptop" type="Leptop" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Leptop">
+        <xs:sequence>
+            <xs:element name="name"/>
+            <xs:element name="specs" type="Specs" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:positiveInteger"/>
+    </xs:complexType>
+    <xs:complexType name="Specs">
+        <xs:sequence>
+            <xs:element name="operating_system"/>
+            <xs:element name="model"/>
+            <xs:element name="memory"/>
+            <xs:element name="system_manufacturer"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:positiveInteger"/>
+    </xs:complexType>
+</xs:schema>

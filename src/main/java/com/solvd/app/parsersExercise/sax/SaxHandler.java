@@ -27,7 +27,7 @@ public class SaxHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equalsIgnoreCase("Job")) {
+        if (qName.equalsIgnoreCase("job")) {
             String id = attributes.getValue("id");
             jobs = new Jobs();
             jobs.setId(Integer.parseInt(id));
@@ -38,7 +38,7 @@ public class SaxHandler extends DefaultHandler {
             name = true;
         } else if (qName.equalsIgnoreCase("description")) {
             description = true;
-        } else if (qName.equalsIgnoreCase("Details")) {
+        } else if (qName.equalsIgnoreCase("details")) {
             String id = attributes.getValue("id");
             codeSalaries = new CodeSalaries();
             codeSalaries.setId(Integer.parseInt(id));
@@ -61,7 +61,7 @@ public class SaxHandler extends DefaultHandler {
             salary = false;
         }
 
-        if (qName.equalsIgnoreCase("Job")) {
+        if (qName.equalsIgnoreCase("job")) {
             jobs.setCode(codeSalaries);
             lst.add(jobs);
         }

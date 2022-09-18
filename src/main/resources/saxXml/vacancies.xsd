@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="vacancies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="job" type="Job" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Job">
+        <xs:sequence>
+            <xs:element name="name" />
+            <xs:element name="description"/>
+            <xs:element name="details" type="Details" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:positiveInteger"/>
+    </xs:complexType>
+    <xs:complexType name="Details">
+        <xs:sequence>
+            <xs:element name="salary"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:positiveInteger"/>
+    </xs:complexType>
+</xs:schema>

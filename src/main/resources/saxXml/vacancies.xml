@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Vacancies>
-    <Job id="1">
+<vacancies>
+    <job id="1">
         <name>Developer</name>
         <description>Develops Things</description>
-        <Details id="10">
+        <details id="10">
             <salary>3500.0</salary>
-        </Details>
-    </Job>
-    <Job id="2">
+        </details>
+    </job>
+    <job id="2">
         <name>Artist</name>
         <description>Creating art of their choice</description>
-        <Details id="20">
+        <details id="20">
             <salary>2500.0</salary>
-        </Details>
-    </Job>
-    <Job id="3">
+        </details>
+    </job>
+    <job id="3">
         <name>Engineer</name>
         <description>Design,build structures and etc.</description>
-        <Details id="30">
+        <details id="30">
             <salary>5000.5</salary>
-        </Details>
-    </Job>
-</Vacancies>
+        </details>
+    </job>
+</vacancies>
