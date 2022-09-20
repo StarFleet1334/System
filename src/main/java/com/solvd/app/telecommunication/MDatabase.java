@@ -1,4 +1,4 @@
-package com.solvd.app.teleCommunication;
+package com.solvd.app.telecommunication;
 
 import com.solvd.app.exceptions.PhoneDoesNotExistException;
 

@@ -4,8 +4,8 @@ import com.solvd.app.exceptions.BatteryEmptyException;
 import com.solvd.app.exceptions.MissPellingException;
 import com.solvd.app.exceptions.PhoneDoesNotExistException;
 import com.solvd.app.exceptions.PowerOffException;
-import com.solvd.app.teleCommunication.MDatabase;
-import com.solvd.app.teleCommunication.Phone;
+import com.solvd.app.telecommunication.MDatabase;
+import com.solvd.app.telecommunication.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

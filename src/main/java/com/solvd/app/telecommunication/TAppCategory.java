@@ -1,4 +1,4 @@
-package com.solvd.app.teleCommunication;
+package com.solvd.app.telecommunication;
 
 import java.util.ArrayList;
 import java.util.Arrays;

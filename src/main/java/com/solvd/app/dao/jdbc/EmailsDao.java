@@ -1,9 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.IEmailsDao;
 import com.solvd.app.tables.Emails;
-import com.solvd.app.tables.Phones;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -49,7 +47,7 @@ public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -77,7 +75,7 @@ public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
             }
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -101,7 +99,7 @@ public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
             preparedStatement.setInt(2,emails.getUsers_id().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -118,7 +116,7 @@ public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
             preparedStatement.setInt(2,emails.getEmailsStorage_id().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -135,7 +133,7 @@ public class EmailsDao extends AbstractMysqlDao implements IEmailsDao {
             preparedStatement.setInt(2,emails.getEmailsStorage_id().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

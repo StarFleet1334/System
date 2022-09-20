@@ -1,9 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.IOwnsDao;
 import com.solvd.app.tables.Owns;
-import com.solvd.app.tables.Phones;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -51,7 +49,7 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -76,7 +74,7 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             preparedStatement.setInt(3,owns.getUsers_id().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -93,7 +91,7 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             preparedStatement.setInt(2,owns.getTechnologies_id().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -111,7 +109,7 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             preparedStatement.setString(3,owns.getName());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -137,7 +135,7 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             }
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

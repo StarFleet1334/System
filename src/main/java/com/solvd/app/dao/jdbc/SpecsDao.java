@@ -1,9 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.ISpecsDao;
-import com.solvd.app.tables.Phones;
 import com.solvd.app.tables.Specs;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -51,7 +49,7 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -83,7 +81,7 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             }
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -105,7 +103,7 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             preparedStatement.setInt(5,specs.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -121,7 +119,7 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             preparedStatement.setInt(1,specs.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -140,7 +138,7 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             preparedStatement.setString(4,specs.getSystem_manufacturer());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

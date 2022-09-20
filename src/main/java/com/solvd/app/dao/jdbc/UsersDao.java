@@ -1,4 +1,4 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 
 import com.solvd.app.dao.IUserDao;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class UsersDao extends AbstractMysqlDao implements IUserDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -52,7 +52,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            //logger.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -83,7 +83,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             }
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+         //   Logger.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -108,7 +108,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             preparedStatement.setInt(4,users.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -124,7 +124,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             preparedStatement.setInt(1,users.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -159,7 +159,7 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             }
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

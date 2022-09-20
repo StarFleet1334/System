@@ -1,8 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.ICodeSalariesDao;
 import com.solvd.app.tables.CodeSalaries;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -43,7 +42,7 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -68,7 +67,7 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
                 return codeSalaries;
             }
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -87,7 +86,7 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             preparedStatement.setInt(2,codeSalaries.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -103,7 +102,7 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             preparedStatement.setInt(1,codeSalaries.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -119,7 +118,7 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             preparedStatement.setDouble(1,codeSalaries.getSalary());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

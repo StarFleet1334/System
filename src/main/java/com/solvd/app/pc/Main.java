@@ -2,7 +2,7 @@ package com.solvd.app.pc;
 
 import com.solvd.app.exceptions.BatteryEmptyException;
 import com.solvd.app.exceptions.PowerOffException;
-import com.solvd.app.teleCommunication.MDatabase;
+import com.solvd.app.telecommunication.MDatabase;
 
 
 

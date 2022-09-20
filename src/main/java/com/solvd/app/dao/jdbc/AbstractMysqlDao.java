@@ -1,4 +1,4 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 public abstract class AbstractMysqlDao {
 

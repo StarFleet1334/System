@@ -1,8 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.IPhonesDao;
 import com.solvd.app.tables.Phones;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -46,7 +45,7 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -76,7 +75,7 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
 
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -100,7 +99,7 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             preparedStatement.setInt(3,phones.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -116,7 +115,7 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             preparedStatement.setInt(1,phones.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -137,7 +136,7 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             }
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();

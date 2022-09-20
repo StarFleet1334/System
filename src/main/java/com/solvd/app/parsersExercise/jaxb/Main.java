@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
+    // change capital letter Logger
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         // Pizzas
 

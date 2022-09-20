@@ -1,9 +1,7 @@
-package com.solvd.app.dao.mysql;
+package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.ITechnologiesDao;
-import com.solvd.app.tables.Phones;
 import com.solvd.app.tables.Technologies;
-import com.solvd.app.tables.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDao {
-    private static final Logger logger = LogManager.getLogger(UsersDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
     private InputStream input;
     private Properties prop;
     private Connection connection = null;
@@ -52,7 +50,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             }
             return list;
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -84,7 +82,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             }
 
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -106,7 +104,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             preparedStatement.setInt(5,technologies.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -122,7 +120,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             preparedStatement.setInt(1,technologies.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
@@ -141,7 +139,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             preparedStatement.setInt(4,technologies.getSpecs().getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            logger.info("Error occurred,check maybe user/password is incorrect.");
+            LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
             connection.close();
