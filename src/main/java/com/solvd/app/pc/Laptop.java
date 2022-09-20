@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class Laptop extends Computer{
 
     private Battery battery;
-    private static final Logger logger = LogManager.getLogger(Laptop.class);
+    private static final Logger LOGGER = LogManager.getLogger(Laptop.class);
     private String owner;
 
     public Laptop(String fullName,String computerName, String operatingSystem, String systemManufacturer, String model, String processor, String memory, int directX) {
@@ -26,7 +26,7 @@ public class Laptop extends Computer{
     public void install(String pathname) throws FireWallException {
         if (pathname.contains(".torrent")) {
             System.out.println("was here");
-            logger.info("File Is Safely Downloaded");
+            LOGGER.info("File Is Safely Downloaded");
         } else {
             throw new FireWallException("This File May contain Threats,That can harm your computer");
         }
@@ -53,7 +53,7 @@ public class Laptop extends Computer{
         if (battery.getBattery() != 0) {
             storage.addMessage(from,to,message);
         } else {
-            logger.error("Please, Charge Your Laptop!!");
+            LOGGER.error("Please, Charge Your Laptop!!");
             throw new BatteryEmptyException("Please,Charge Your Laptop!!!!");
         }
     }

@@ -29,19 +29,19 @@ interface EvenChecker {
 }
 
 public class FirstTask {
-    private static final Logger logger = LogManager.getLogger(FirstTask.class);
+    private static final Logger LOGGER = LogManager.getLogger(FirstTask.class);
     public static void main(String[] args) {
         // 1
 //        MyInterface ref = () -> 20;
-//        logger.info(ref.getValue());
+//        LOGGER.info(ref.getValue());
 
         // 2
 //        Reverse reverse = (x,y) -> x + y;
-//        logger.info(reverse.add(10,20));
+//        LOGGER.info(reverse.add(10,20));
 
         // 3
 //        Multiplication multiplication = (x,y) -> x * y;
-//        logger.info(multiplication.mul(10.0,20.2));
+//        LOGGER.info(multiplication.mul(10.0,20.2));
 
         // 4
 //        Home home = () -> logger.info("Drawing....");
@@ -49,6 +49,6 @@ public class FirstTask {
 
         // 5
 //        EvenChecker evenChecker = (x) -> x % 2 == 0;
-//        logger.info(evenChecker.checker(11));
+//        LOGGER.info(evenChecker.checker(11));
     }
 }

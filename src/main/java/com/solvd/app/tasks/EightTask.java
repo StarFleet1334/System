@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 class Paint implements Runnable {
     // Immutable Implementations
-    private static final Logger logger = LogManager.getLogger(Paint.class);
+    private static final Logger LOGGER = LogManager.getLogger(Paint.class);
     private final List<String> painting = Arrays.asList("Mona Lisa","The Starry Night",
             "Girl with a Pearl Earring","The Kiss","The Night Watch");
     private static int taskCount = 0;
@@ -35,9 +35,9 @@ class Paint implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        logger.info(Thread.currentThread().getName() + ": Painting... for The Customer by ID: " + id);
-        painting.forEach(logger::info);
-        logger.info("-------------------------------------------------");
+        LOGGER.info(Thread.currentThread().getName() + ": Painting... for The Customer by ID: " + id);
+        painting.forEach(LOGGER::info);
+        LOGGER.info("-------------------------------------------------");
     }
 }
 

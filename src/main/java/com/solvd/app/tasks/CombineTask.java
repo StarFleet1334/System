@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 
 class Draw implements Runnable {
-    private static final Logger logger = LogManager.getLogger(Draw.class);
+    private static final Logger LOGGER = LogManager.getLogger(Draw.class);
     // Immutable Implementations
     private final List<String> painting = Arrays.asList("Mona Lisa","The Starry Night",
             "Girl with a Pearl Earring","The Kiss","The Night Watch");
@@ -20,9 +20,9 @@ class Draw implements Runnable {
 
     @Override
     public void run() {
-        logger.info(Thread.currentThread().getName() + ": Drawing... for The Customer by ID: " + id);
-        painting.forEach(logger::info);
-        logger.info("-------------------------------------------------");
+        LOGGER.info(Thread.currentThread().getName() + ": Drawing... for The Customer by ID: " + id);
+        painting.forEach(LOGGER::info);
+        LOGGER.info("-------------------------------------------------");
     }
 }
 

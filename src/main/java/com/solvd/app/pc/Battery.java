@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Battery {
     private int BATTERY = 100;
-    private static final Logger logger = LogManager.getLogger(Battery.class);
+    private static final Logger LOGGER = LogManager.getLogger(Battery.class);
     private Thread thread;
 
     public int getBattery() {
@@ -21,7 +21,7 @@ public class Battery {
 
     public void BatteryStatus(String owner) throws BatteryEmptyException {
         if (BATTERY == 0) {
-            logger.info("Battery needs to be charged!!!");
+            LOGGER.info("Battery needs to be charged!!!");
             throw new BatteryEmptyException("Charge Battery");
         } else {
             System.out.println("Here");
@@ -32,12 +32,12 @@ public class Battery {
                         while (true) {
                             BATTERY--;
                             if (BATTERY == 0) {
-                                logger.info(owner + ": " + "Battery needs to be charged!!");
+                                LOGGER.info(owner + ": " + "Battery needs to be charged!!");
                                 break;
                             };
 
                             if (BATTERY < 15) {
-                                logger.info("Emergency!! to "+ owner +": " + " Battery is less than 15%");
+                                LOGGER.info("Emergency!! to "+ owner +": " + " Battery is less than 15%");
                                 Scanner scanner = new Scanner(System.in);
                                 System.out.println("Do you want to recharge your battery " + owner + "?");
                                 String answer = scanner.nextLine();

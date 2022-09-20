@@ -11,7 +11,7 @@ import java.lang.reflect.Parameter;
 public class FourthTask {
     private int value;
     public String name;
-    private static final Logger logger = LogManager.getLogger(FourthTask.class);
+    private static final Logger LOGGER = LogManager.getLogger(FourthTask.class);
 
     private FourthTask() {}
     public FourthTask(int value) {
@@ -32,7 +32,7 @@ public class FourthTask {
         Field field = exec.getDeclaredField("value");
         field.setAccessible(true);
         field.set(fourthTask,20);
-        logger.info(field.get(fourthTask));
+        LOGGER.info(field.get(fourthTask));
 
 
 

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 class EvenNumbersRunnable implements Runnable {
     private int range;
-    private static final Logger logger = LogManager.getLogger(EvenNumbersRunnable.class);
+    private static final Logger LOGGER = LogManager.getLogger(EvenNumbersRunnable.class);
 
     public EvenNumbersRunnable(int range) {
         this.range = range;
@@ -16,7 +16,7 @@ class EvenNumbersRunnable implements Runnable {
         try {
             for (int i = 0; i <= range; i++) {
                 if (i % 2 == 0) {
-                    logger.info("Even Number: " + i);
+                    LOGGER.info("Even Number: " + i);
                     Thread.sleep(500);
                 }
             }
@@ -28,7 +28,7 @@ class EvenNumbersRunnable implements Runnable {
 
 class EvenNumberThread extends Thread {
     private int range;
-    private static final Logger logger = LogManager.getLogger(EvenNumberThread.class);
+    private static final Logger LOGGER = LogManager.getLogger(EvenNumberThread.class);
 
     public EvenNumberThread(int range) {
         this.range = range;
@@ -40,7 +40,7 @@ class EvenNumberThread extends Thread {
         try {
             for (int i = 0; i <= range; i++) {
                 if (i % 2 == 0) {
-                    logger.info("Even Number: " + i);
+                    LOGGER.info("Even Number: " + i);
                     Thread.sleep(500);
                 }
             }

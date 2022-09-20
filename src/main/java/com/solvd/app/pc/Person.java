@@ -19,7 +19,7 @@ public class Person {
     private Laptop laptop;
     private PC pc;
     private int age;
-    private static final Logger logger = LogManager.getLogger(Person.class);
+    private static final Logger LOGGER = LogManager.getLogger(Person.class);
     private Phone phone;
     private String type;
 
@@ -99,7 +99,7 @@ public class Person {
         for (Map.Entry<HashMap<String, String>, List<String>> set : storage.getHistory().entrySet()) {
             for (Map.Entry<String,String> inner : set.getKey().entrySet()) {
                 if (Objects.equals(inner.getKey().split(":")[1], fullName)) {
-                    logger.info("From: " + inner.getKey().split(":")[0] + " @Status - " + inner.getValue());
+                    LOGGER.info("From: " + inner.getKey().split(":")[0] + " @Status - " + inner.getValue());
                     System.out.println("From: " + inner.getKey().split(":")[0] + " @Status - " + inner.getValue());
                     for (String item : set.getValue()) {
                         System.out.println("- " + item);
@@ -115,7 +115,7 @@ public class Person {
 
     public void addPhoneNumber(MDatabase database,String phoneNumber) {
         phone.setNumber(phoneNumber);
-        logger.info("Person: " + fullName + ",as: " + phoneNumber);
+        LOGGER.info("Person: " + fullName + ",as: " + phoneNumber);
         database.add(fullName,phone.getNumber());
     }
 
@@ -130,7 +130,7 @@ public class Person {
     public void updatePhoneNumber(MDatabase database,String newPhoneNumber) {
         try {
             database.update(fullName,newPhoneNumber);
-            logger.info("Person: " + fullName + ",Updated PhoneNumber: " + newPhoneNumber);
+            LOGGER.info("Person: " + fullName + ",Updated PhoneNumber: " + newPhoneNumber);
         } catch (PhoneDoesNotExistException e) {
             e.printStackTrace(System.out);
         } finally {

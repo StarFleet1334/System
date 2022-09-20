@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 
 
 public class FileTask {
-    private static final Logger logger = LogManager.getLogger(FileTask.class);
+    private static final Logger LOGGER = LogManager.getLogger(FileTask.class);
 
     static String content = "He used to get confused between soldiers and shoulders," +
             " but as a military man, he now soldiers responsibility.";

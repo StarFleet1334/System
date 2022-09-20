@@ -9,12 +9,12 @@ import org.apache.logging.log4j.Logger;
 
 
 public class PC extends Computer{
-    private static final Logger logger = LogManager.getLogger(PC.class);
+    private static final Logger LOGGER = LogManager.getLogger(PC.class);
 
     @Override
     public void install(String pathname) throws FireWallException {
         if (pathname.contains(".torrent")) {
-            logger.info("File Is Safely Downloaded");
+            LOGGER.info("File Is Safely Downloaded");
         } else {
             throw new FireWallException("This File May contain Threats,That can harm your computer");
         }
@@ -40,7 +40,7 @@ public class PC extends Computer{
         if (isComputer()) {
             storage.addMessage(from,to,message);
         } else {
-            logger.error("Please,To send A message U must turn on your machine!");
+            LOGGER.error("Please,To send A message U must turn on your machine!");
             throw new PowerOffException("Please, To send A message U must turn on your machine!");
         }
     }
