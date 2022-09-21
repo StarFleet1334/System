@@ -16,17 +16,12 @@ import java.util.Properties;
 
 public class UsersDao extends AbstractMysqlDao implements IUserDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     private PhonesDao phonesDao;
 
     public UsersDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         phonesDao = new PhonesDao();
     }
 
@@ -34,10 +29,10 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
     @Override
     public List<Users> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from users ;");
             resultSet = preparedStatement.executeQuery();
             List<Users> list = new ArrayList<>();
+            phonesDao.setConnection(connection);
             while (resultSet.next()) {
                 Users user = new Users();
                 int user_id = resultSet.getInt("id");
@@ -55,7 +50,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             //logger.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -65,10 +59,10 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
     @Override
     public Users get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from users where id= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
+            phonesDao.setConnection(connection);
             while (resultSet.next()) {
                 Users user = new Users();
                 int user_id = resultSet.getInt("id");
@@ -86,7 +80,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
          //   Logger.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -96,7 +89,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
     @Override
     public void update(Users users) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update users set full_name = ?, age = ?, phones_id = ? where id = ?;");
             preparedStatement.setString(1,users.getFull_name());
             preparedStatement.setInt(2,users.getAge());
@@ -111,7 +103,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -119,7 +110,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
     @Override
     public void delete(Users users) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from users where id= ? ;");
             preparedStatement.setInt(1,users.getId());
             preparedStatement.executeUpdate();
@@ -127,7 +117,6 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -136,10 +125,10 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
     @Override
     public void create(Users users) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into users values (default,?,?,?) ;");
             preparedStatement.setString(1,users.getFull_name());
             preparedStatement.setInt(2,users.getAge());
+            phonesDao.setConnection(connection);
             if (users.getPhone() == null) {
                 preparedStatement.setNull(3,4);
             } else {
@@ -162,9 +151,12 @@ public class UsersDao extends AbstractMysqlDao implements IUserDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

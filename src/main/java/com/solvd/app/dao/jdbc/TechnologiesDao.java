@@ -1,6 +1,7 @@
 package com.solvd.app.dao.jdbc;
 
 import com.solvd.app.dao.ITechnologiesDao;
+import com.solvd.app.tables.Specs;
 import com.solvd.app.tables.Technologies;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,27 +15,22 @@ import java.util.Properties;
 
 public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     private SpecsDao specsDao;
 
     public TechnologiesDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         specsDao = new SpecsDao();
     }
 
     @Override
     public List<Technologies> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from technologies ;");
             resultSet = preparedStatement.executeQuery();
             List<Technologies> list = new ArrayList<>();
+            specsDao.setConnection(connection);
             while (resultSet.next()) {
                 Technologies technologies = new Technologies();
                 String name = resultSet.getString("name");
@@ -46,6 +42,7 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
                 technologies.setName(name);
                 technologies.setPc(pc);
                 technologies.setLeptop(leptop);
+                technologies.setSpecs(specsDao.get(specs_id));
                 list.add(technologies);
             }
             return list;
@@ -53,7 +50,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -63,10 +59,10 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
     @Override
     public Technologies get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from technologies where id_technologies= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
+            specsDao.setConnection(connection);
             while (resultSet.next()) {
                 Technologies technologies = new Technologies();
                 String name = resultSet.getString("name");
@@ -85,7 +81,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -95,7 +90,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
     @Override
     public void update(Technologies technologies) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update technologies set name = ?, pc = ?, leptop = ?,specs = ? where id_technologies = ?;");
             preparedStatement.setString(1,technologies.getName());
             preparedStatement.setInt(2,technologies.getPc());
@@ -107,7 +101,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -115,7 +108,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
     @Override
     public void delete(Technologies technologies) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from technologies where id_technologies= ? ;");
             preparedStatement.setInt(1,technologies.getId());
             preparedStatement.executeUpdate();
@@ -123,7 +115,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -131,7 +122,6 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
     @Override
     public void create(Technologies technologies) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into technologies values (default,?,?,?,?) ;");
             preparedStatement.setString(1,technologies.getName());
             preparedStatement.setInt(2,technologies.getPc());
@@ -142,8 +132,11 @@ public class TechnologiesDao extends AbstractMysqlDao implements ITechnologiesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection){
+        this.connection = connection;
     }
 }

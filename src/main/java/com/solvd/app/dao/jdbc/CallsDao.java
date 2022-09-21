@@ -1,5 +1,6 @@
 package com.solvd.app.dao.jdbc;
 
+import com.solvd.app.connection.ConnectionPool;
 import com.solvd.app.dao.ICallsDao;
 import com.solvd.app.tables.Calls;
 import org.apache.logging.log4j.LogManager;
@@ -14,8 +15,6 @@ import java.util.Properties;
 
 public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
@@ -23,9 +22,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     private CallsStorageDao callsStorageDao;
 
     public CallsDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         usersDao = new UsersDao();
         callsStorageDao = new CallsStorageDao();
     }
@@ -34,10 +30,11 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     @Override
     public List<Calls> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from calls ;");
             resultSet = preparedStatement.executeQuery();
             List<Calls> list = new ArrayList<>();
+            usersDao.setConnection(connection);
+            callsStorageDao.setConnection(connection);
             while (resultSet.next()) {
                 Calls calls = new Calls();
                 int from_user = resultSet.getInt("user_id");
@@ -51,7 +48,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -61,7 +57,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     @Override
     public Calls getById(int user_id, int call_storage_id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from users where use_id= ?,calls_storage_id= ? ;");
             preparedStatement.setInt(1,user_id);
             preparedStatement.setInt(2,call_storage_id);
@@ -74,7 +69,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -89,7 +83,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     @Override
     public void update(Calls calls) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update calls set calls_storage_id = ? where user_id = ?;");
             preparedStatement.setInt(1,calls.getUsers_id().getId());
             preparedStatement.setInt(2,calls.getCallsStorage_id().getId());
@@ -98,7 +91,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -106,7 +98,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     @Override
     public void delete(Calls calls) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from calls where user_id= ?,calls_storage_id= ? ;");
             preparedStatement.setInt(1,calls.getUsers_id().getId());
             preparedStatement.setInt(2,calls.getCallsStorage_id().getId());
@@ -115,7 +106,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -123,7 +113,6 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
     @Override
     public void create(Calls calls) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into users values (?,?) ;");
             preparedStatement.setInt(1,calls.getUsers_id().getId());
             preparedStatement.setInt(2,calls.getCallsStorage_id().getId());
@@ -132,9 +121,12 @@ public class CallsDao extends AbstractMysqlDao implements ICallsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

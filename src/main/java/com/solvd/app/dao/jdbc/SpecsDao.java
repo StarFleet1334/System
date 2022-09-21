@@ -14,22 +14,15 @@ import java.util.Properties;
 
 public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    public SpecsDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
-    }
+    public SpecsDao() throws IOException {}
 
     @Override
     public List<Specs> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from specs ;");
             resultSet = preparedStatement.executeQuery();
             List<Specs> list = new ArrayList<>();
@@ -52,7 +45,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -62,7 +54,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
     @Override
     public Specs get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from specs where id= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
@@ -84,7 +75,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -94,7 +84,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
     @Override
     public void update(Specs specs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update specs set operating_system = ?, model = ?, memory = ?, system_manufacturer = ? where id = ?;");
             preparedStatement.setString(1,specs.getOperating_system());
             preparedStatement.setString(2,specs.getModel());
@@ -106,7 +95,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -114,7 +102,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
     @Override
     public void delete(Specs specs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from specs where id= ? ;");
             preparedStatement.setInt(1,specs.getId());
             preparedStatement.executeUpdate();
@@ -122,7 +109,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -130,7 +116,6 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
     @Override
     public void create(Specs specs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into specs values (default,?,?,?,?) ;");
             preparedStatement.setString(1,specs.getOperating_system());
             preparedStatement.setString(2,specs.getModel());
@@ -141,8 +126,11 @@ public class SpecsDao extends AbstractMysqlDao implements ISpecsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

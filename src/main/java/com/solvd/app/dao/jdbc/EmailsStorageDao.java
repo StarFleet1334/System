@@ -15,8 +15,6 @@ import java.util.Properties;
 
 public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorageDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
@@ -24,19 +22,17 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
 
 
     public EmailsStorageDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         usersDao = new UsersDao();
     }
 
     @Override
     public List<EmailsStorage> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from emailsstorage ;");
             resultSet = preparedStatement.executeQuery();
             List<EmailsStorage> list = new ArrayList<>();
+            usersDao.setConnection(connection);
+
             while (resultSet.next()) {
                 EmailsStorage emailsStorage = new EmailsStorage();
                 int from = resultSet.getInt("email_from_user");
@@ -56,7 +52,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -66,10 +61,11 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
     @Override
     public EmailsStorage get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from emailsstorage where id= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
+            usersDao.setConnection(connection);
+
             while (resultSet.next()) {
                 EmailsStorage emailsStorage = new EmailsStorage();
                 int from = resultSet.getInt("email_from_user");
@@ -88,7 +84,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -98,7 +93,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
     @Override
     public void update(EmailsStorage emailsStorage) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update users set email_from_user = ?, email_to_user = ?, text = ?, time= ? where id = ?;");
             preparedStatement.setInt(1,emailsStorage.getEmail_from_user().getId());
             preparedStatement.setInt(2,emailsStorage.getEmail_to_user().getId());
@@ -114,7 +108,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -122,7 +115,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
     @Override
     public void delete(EmailsStorage emailsStorage) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from emailsstorage where id= ? ;");
             preparedStatement.setInt(1,emailsStorage.getId());
             preparedStatement.executeUpdate();
@@ -130,7 +122,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -138,7 +129,6 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
     @Override
     public void create(EmailsStorage emailsStorage) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into users values (default,?,?,?,?) ;");
             preparedStatement.setInt(1,emailsStorage.getEmail_from_user().getId());
             preparedStatement.setInt(2,emailsStorage.getEmail_to_user().getId());
@@ -153,8 +143,11 @@ public class EmailsStorageDao extends AbstractMysqlDao implements IEmailsStorage
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

@@ -15,8 +15,6 @@ import java.util.Properties;
 
 public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
@@ -24,9 +22,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     private JobsDao jobsDao;
 
     public WorksDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         usersDao = new UsersDao();
         jobsDao = new JobsDao();
     }
@@ -34,10 +29,11 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     @Override
     public List<Works> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from works ;");
             resultSet = preparedStatement.executeQuery();
             List<Works> list = new ArrayList<>();
+            usersDao.setConnection(connection);
+            jobsDao.setConnection(connection);
             while (resultSet.next()) {
                 Works works = new Works();
                 int users_id = resultSet.getInt("users_id");
@@ -53,7 +49,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -63,11 +58,12 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     @Override
     public Works getById(int user_id, int job_id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from works where users_id= ?,jobs_id= ? ;");
             preparedStatement.setInt(1,user_id);
             preparedStatement.setInt(2,job_id);
             resultSet = preparedStatement.executeQuery();
+            usersDao.setConnection(connection);
+            jobsDao.setConnection(connection);
             while (resultSet.next()) {
                 Works works = new Works();
                 Date start_date = resultSet.getDate("start_date");
@@ -81,7 +77,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -96,7 +91,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     @Override
     public void update(Works works) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update works set jobs_id = ?,start_date = ? where users_id = ?;");
             preparedStatement.setInt(1,works.getJobs_id().getId());
             preparedStatement.setDate(2, (java.sql.Date) works.getStart_date());
@@ -106,7 +100,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -114,7 +107,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     @Override
     public void delete(Works works) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from works where users_id= ? ;");
             preparedStatement.setInt(1,works.getUsers_id().getId());
             preparedStatement.executeUpdate();
@@ -122,7 +114,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -130,7 +121,6 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
     @Override
     public void create(Works works) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into works values (?,?,?) ;");
             preparedStatement.setInt(1,works.getUsers_id().getId());
             preparedStatement.setInt(2,works.getJobs_id().getId());
@@ -140,8 +130,11 @@ public class WorksDao extends AbstractMysqlDao implements IWorksDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

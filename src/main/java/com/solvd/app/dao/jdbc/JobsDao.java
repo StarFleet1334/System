@@ -15,26 +15,22 @@ import java.util.Properties;
 
 public class JobsDao extends AbstractMysqlDao implements IJobsDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
+
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     private CodeSalariesDao codeSalariesDao;
 
     public JobsDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         codeSalariesDao = new CodeSalariesDao();
     }
     @Override
     public List<Jobs> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from Jobs ;");
             resultSet = preparedStatement.executeQuery();
             List<Jobs> list = new ArrayList<>();
+            codeSalariesDao.setConnection(connection);
             while (resultSet.next()) {
                 Jobs jobs = new Jobs();
                 String name = resultSet.getString("name");
@@ -52,7 +48,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -62,10 +57,10 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
     @Override
     public Jobs get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from jobs where id_jobs= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
+            codeSalariesDao.setConnection(connection);
             while (resultSet.next()) {
                 Jobs jobs = new Jobs();
                 String name = resultSet.getString("name");
@@ -83,7 +78,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -93,7 +87,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
     @Override
     public void update(Jobs jobs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update jobs set name = ?, description = ?, code = ? where id_jobs = ?;");
             preparedStatement.setString(1,jobs.getName());
             preparedStatement.setString(2,jobs.getDescription());
@@ -104,7 +97,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -112,7 +104,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
     @Override
     public void delete(Jobs jobs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from jobs where id_jobs= ? ;");
             preparedStatement.setInt(1,jobs.getId());
             preparedStatement.executeUpdate();
@@ -120,7 +111,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -128,7 +118,6 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
     @Override
     public void create(Jobs jobs) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into jobs values (default,?,?,?) ;");
             codeSalariesDao.create(new CodeSalaries(jobs.getCode().getId(),jobs.getCode().getSalary()));
             preparedStatement.setString(1,jobs.getName());
@@ -139,8 +128,11 @@ public class JobsDao extends AbstractMysqlDao implements IJobsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

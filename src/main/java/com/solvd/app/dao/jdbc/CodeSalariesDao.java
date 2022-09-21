@@ -14,21 +14,16 @@ import java.util.Properties;
 
 public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
+
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    public CodeSalariesDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
-    }
+    public CodeSalariesDao() throws IOException {}
+
     @Override
     public List<CodeSalaries> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from codesalaries ;");
             resultSet = preparedStatement.executeQuery();
             List<CodeSalaries> list = new ArrayList<>();
@@ -45,7 +40,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -55,7 +49,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
     @Override
     public CodeSalaries get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from codesalaries where id_code= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
@@ -70,7 +63,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -80,7 +72,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
     @Override
     public void update(CodeSalaries codeSalaries) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update codesalaries set salary= ? where id_code = ?;");
             preparedStatement.setDouble(1,codeSalaries.getSalary());
             preparedStatement.setInt(2,codeSalaries.getId());
@@ -89,7 +80,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -97,7 +87,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
     @Override
     public void delete(CodeSalaries codeSalaries) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from codesalaries where id_code= ? ;");
             preparedStatement.setInt(1,codeSalaries.getId());
             preparedStatement.executeUpdate();
@@ -105,7 +94,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -113,7 +101,6 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
     @Override
     public void create(CodeSalaries codeSalaries) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into codesalaries values (default,?) ;");
             preparedStatement.setDouble(1,codeSalaries.getSalary());
             preparedStatement.executeUpdate();
@@ -121,8 +108,11 @@ public class CodeSalariesDao extends AbstractMysqlDao implements ICodeSalariesDa
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

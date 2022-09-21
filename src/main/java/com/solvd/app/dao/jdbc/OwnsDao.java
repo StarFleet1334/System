@@ -14,8 +14,6 @@ import java.util.Properties;
 
 public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
@@ -23,9 +21,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     private TechnologiesDao technologiesDao;
 
     public OwnsDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
         usersDao = new UsersDao();
         technologiesDao = new TechnologiesDao();
     }
@@ -33,10 +28,12 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     @Override
     public List<Owns> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from owns ;");
             resultSet = preparedStatement.executeQuery();
             List<Owns> list = new ArrayList<>();
+            usersDao.setConnection(connection);
+            technologiesDao.setConnection(connection);
+
             while (resultSet.next()) {
                 Owns owns = new Owns();
                 int user_id = resultSet.getInt("user_id");
@@ -52,7 +49,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -67,7 +63,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     @Override
     public void update(Owns owns) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update owns set technology_id = ?, name = ? where user_id = ?;");
             preparedStatement.setInt(1,owns.getTechnologies_id().getId());
             preparedStatement.setString(2,owns.getName());
@@ -77,7 +72,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -85,7 +79,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     @Override
     public void delete(Owns owns) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from works where user_id= ?,technology_id= ? ;");
             preparedStatement.setInt(1,owns.getUsers_id().getId());
             preparedStatement.setInt(2,owns.getTechnologies_id().getId());
@@ -94,7 +87,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -102,7 +94,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     @Override
     public void create(Owns owns) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into owns values (?,?,?) ;");
             preparedStatement.setInt(1,owns.getUsers_id().getId());
             preparedStatement.setInt(2,owns.getTechnologies_id().getId());
@@ -112,7 +103,6 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -120,11 +110,13 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
     @Override
     public Owns getById(int users_id, int tech_id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from users where users_id= ?,technology_id= ? ;");
             preparedStatement.setInt(1,users_id);
             preparedStatement.setInt(2,tech_id);
             resultSet = preparedStatement.executeQuery();
+            usersDao.setConnection(connection);
+            technologiesDao.setConnection(connection);
+
             while (resultSet.next()) {
                 Owns owns = new Owns();
                 String name = resultSet.getString("name");
@@ -138,10 +130,13 @@ public class OwnsDao extends AbstractMysqlDao implements IOwnsDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
         return null;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

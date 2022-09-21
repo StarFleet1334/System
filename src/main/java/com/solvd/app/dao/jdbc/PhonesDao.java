@@ -14,22 +14,15 @@ import java.util.Properties;
 
 public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
     private static final Logger LOGGER = LogManager.getLogger(UsersDao.class);
-    private InputStream input;
-    private Properties prop;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    public PhonesDao() throws IOException {
-        input = UsersDao.class.getResourceAsStream("/db.properties");
-        prop = new Properties();
-        prop.load(input);
-    }
+    public PhonesDao() throws IOException {}
 
     @Override
     public List<Phones> getAll() throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from phones ;");
             resultSet = preparedStatement.executeQuery();
             List<Phones> list = new ArrayList<>();
@@ -48,7 +41,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -58,7 +50,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
     @Override
     public Phones get(int id) throws SQLException {
         try {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("Select * from phones where id= ? ;");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
@@ -78,7 +69,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         }
@@ -88,7 +78,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
     @Override
     public void update(Phones phones) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("update phones set full_name = ?, phone_number = ? where id = ?;");
             preparedStatement.setString(1,phones.getFull_name());
             if (phones.getPhone_number() == null) {
@@ -102,7 +91,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -110,7 +98,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
     @Override
     public void delete(Phones phones) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("delete from phones where id= ? ;");
             preparedStatement.setInt(1,phones.getId());
             preparedStatement.executeUpdate();
@@ -118,7 +105,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -126,7 +112,6 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
     @Override
     public void create(Phones phones) throws SQLException {
         try  {
-            connection = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("userName"),prop.getProperty("password"));
             preparedStatement = connection.prepareStatement("insert into phones values (default,?,?) ;");
             preparedStatement.setString(1,phones.getFull_name());
             if (phones.getPhone_number() == null) {
@@ -139,8 +124,11 @@ public class PhonesDao extends AbstractMysqlDao implements IPhonesDao {
             LOGGER.info("Error occurred,check maybe user/password is incorrect.");
             e.printStackTrace();
         } finally {
-            connection.close();
             preparedStatement.close();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }
