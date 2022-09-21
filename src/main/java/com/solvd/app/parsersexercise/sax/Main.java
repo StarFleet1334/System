@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.sax;
+package com.solvd.app.parsersexercise.sax;
 
 import com.solvd.app.tables.Jobs;
 import org.xml.sax.SAXException;
@@ -58,7 +58,7 @@ public class Main {
             SchemaFactory factory =
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            ClassLoader classLoader = com.solvd.app.parsersExercise.stax.Main.class.getClassLoader();
+            ClassLoader classLoader = com.solvd.app.parsersexercise.stax.Main.class.getClassLoader();
             URL xsd_resource = classLoader.getResource(xsd.toString());
             URL xml_resource = classLoader.getResource(xml.toString());
 

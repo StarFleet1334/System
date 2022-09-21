@@ -1,8 +1,6 @@
-package com.solvd.app.parsersExercise.jaxb;
+package com.solvd.app.parsersexercise.jaxb;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "address")
 public class Address {

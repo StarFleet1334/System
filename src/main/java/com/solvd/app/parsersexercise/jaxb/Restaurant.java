@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.jaxb;
+package com.solvd.app.parsersexercise.jaxb;
 
 import javax.xml.bind.annotation.*;
 

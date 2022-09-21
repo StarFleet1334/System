@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.jaxb;
+package com.solvd.app.parsersexercise.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;

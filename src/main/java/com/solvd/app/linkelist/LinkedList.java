@@ -1,4 +1,4 @@
-package com.solvd.app.linkeList;
+package com.solvd.app.linkelist;
 
 public class LinkedList<T> {
 

@@ -1,13 +1,11 @@
 package com.solvd.app.connection;
 
 import com.solvd.app.dao.jdbc.*;
-import com.solvd.app.linkeList.LinkedList;
 import com.solvd.app.tables.*;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {

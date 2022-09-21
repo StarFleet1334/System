@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.dom;
+package com.solvd.app.parsersexercise.dom;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

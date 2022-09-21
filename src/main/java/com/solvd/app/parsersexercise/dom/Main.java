@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.dom;
+package com.solvd.app.parsersexercise.dom;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -26,7 +26,7 @@ public class Main {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
 
-        ClassLoader classLoader = com.solvd.app.parsersExercise.sax.Main.class.getClassLoader();
+        ClassLoader classLoader = com.solvd.app.parsersexercise.sax.Main.class.getClassLoader();
         URL resource = classLoader.getResource("domXml/tech.xml");
 
         assert resource != null;
@@ -57,7 +57,7 @@ public class Main {
             SchemaFactory factory =
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            ClassLoader classLoader = com.solvd.app.parsersExercise.stax.Main.class.getClassLoader();
+            ClassLoader classLoader = com.solvd.app.parsersexercise.stax.Main.class.getClassLoader();
             URL xsd_resource = classLoader.getResource(xsd.toString());
             URL xml_resource = classLoader.getResource(xml.toString());
 

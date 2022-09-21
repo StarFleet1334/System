@@ -1,9 +1,4 @@
-package com.solvd.app.parsersExercise.jaxb;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import java.util.ArrayList;
-import java.util.List;
+package com.solvd.app.parsersexercise.jaxb;
 
 public class Food {
 

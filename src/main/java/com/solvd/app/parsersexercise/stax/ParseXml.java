@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.stax;
+package com.solvd.app.parsersexercise.stax;
 
 import com.solvd.app.tables.Phones;
 import com.solvd.app.tables.Users;

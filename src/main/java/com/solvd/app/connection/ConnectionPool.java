@@ -1,8 +1,6 @@
 package com.solvd.app.connection;
 
 
-import com.solvd.app.dao.jdbc.UsersDao;
-import com.solvd.app.linkeList.LinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

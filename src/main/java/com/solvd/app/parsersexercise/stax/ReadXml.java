@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.stax;
+package com.solvd.app.parsersexercise.stax;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

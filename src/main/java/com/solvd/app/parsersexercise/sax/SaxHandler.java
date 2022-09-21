@@ -1,4 +1,4 @@
-package com.solvd.app.parsersExercise.sax;
+package com.solvd.app.parsersexercise.sax;
 
 import com.solvd.app.tables.CodeSalaries;
 import com.solvd.app.tables.Jobs;
