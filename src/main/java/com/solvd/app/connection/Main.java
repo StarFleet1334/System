@@ -49,6 +49,12 @@ public class Main {
                     }
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
+                } finally {
+                    try {
+                        first.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
@@ -165,12 +171,13 @@ public class Main {
         Runnable runnable5 = new Runnable() {
             @Override
             public void run() {
-                sixth = connectionPool.getConnection();
                 connectionPool.returnConnection(first);
+                sixth = connectionPool.getConnection();
                 WorksDao worksDao = null;
 
                 try {
                     worksDao = new WorksDao();
+                    worksDao.setConnection(sixth);
                     List<Works> works = worksDao.getAll();
 
                     for (Works x : works) {
