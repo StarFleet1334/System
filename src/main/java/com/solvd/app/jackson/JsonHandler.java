@@ -3,13 +3,16 @@ package com.solvd.app.jackson;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class JsonHandler {
+
+    private static final Logger LOGGER = LogManager.getLogger(JsonHandler.class);
 
     public Company jsonToObject() throws IOException, URISyntaxException {
 
