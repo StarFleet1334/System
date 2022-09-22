@@ -1,0 +1,54 @@
+{
+  "name": "tech",
+  "address": {
+    "street": "London Street",
+    "city": "London",
+    "zipcode": "5208"
+  },
+  "contacts": {
+    "local": "12345",
+    "global": "(+123)12345"
+  },
+  "numberEmp": "6000+",
+  "director": {
+    "name": "Jack",
+    "prop": {
+      "age": 60,
+      "salary": "???",
+      "experience": "14+"
+    }
+  },
+  "manager": [
+    {
+      "name": "Sally",
+      "prop": {
+        "age": 30,
+        "salary": "7000+",
+        "experience": "4+"
+      }
+    },
+    {
+      "name": "Lisa",
+      "prop": {
+        "age": 27,
+        "salary": "6000+",
+        "experience": "2+"
+      }
+    }
+  ],
+  "partnerCompanies": [
+    "Google","Meta","Amazon","Youtube","Solvd Inc.",
+    "Apple Inc.","Nvidia Corp.","Microsoft Corp.",
+    "Oracle Corp.","Adobe Corp."
+  ],
+  "head_quarter": "London",
+  "cities": [
+    "Paris","Berlin","New-York",
+    "California","Bangkok",
+    "Dubai","Tokyo","Los-Angeles",
+    "Istanbul","Amsterdam","Milan",
+    "Seoul","Toronto","Munich","Kyiv",
+    "Chicago","Florence","Athens"
+  ],
+  "connections": "1000000+"
+}
