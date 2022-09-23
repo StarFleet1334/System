@@ -26,5 +26,6 @@
     <mappers>
         <mapper resource="myBatis/user-mapper.xml"/>
         <mapper resource="myBatis/phone-mapper.xml"/>
+        <mapper resource="myBatis/salary-mapper.xml"/>
     </mappers>
 </configuration>

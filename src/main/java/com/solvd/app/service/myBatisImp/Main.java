@@ -1,5 +1,6 @@
 package com.solvd.app.service.myBatisImp;
 
+import com.solvd.app.tables.CodeSalaries;
 import com.solvd.app.tables.Phones;
 import com.solvd.app.tables.Users;
 
@@ -8,15 +9,14 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        PhoneServiceImp phoneServiceImp = new PhoneServiceImp();
+       CodeSalariesServiceImp serviceImp = new CodeSalariesServiceImp();
 
-       phoneServiceImp.create(
-               new Phones(8,"Margaritha","551435465")
+
+
+       serviceImp.delete(
+               new CodeSalaries(4,456.21)
        );
 
 
-       phoneServiceImp.update(
-               new Phones(1,"Ilia",null)
-       );
     }
 }
