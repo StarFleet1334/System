@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.app.dao.IJobsDao">
+
+    <resultMap id="jobResultMap" type="com.solvd.app.tables.Jobs">
+        <id column="id_jobs" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <sql id="body">
+        j.id_jobs,
+        j.name,
+        j.description
+    </sql>
+
+
+    <select id="getAll" resultMap="jobResultMap">
+        SELECT *
+        FROM jobs
+    </select>
+
+    <select id="get" resultMap="jobResultMap">
+        SELECT
+        <include refid="body"/>
+        FROM jobs j
+        WHERE id_jobs=#{id}
+    </select>
+
+    <select id="delete">
+        DELETE
+        FROM jobs
+        WHERE id_jobs=#{id}
+    </select>
+
+
+    <select id="create">
+        INSERT INTO jobs (id_jobs,name,description,code)
+        VALUES (#{id},#{name},#{description},#{code.id})
+    </select>
+
+    <select id="update">
+        UPDATE jobs
+        SET name=#{name},description=#{description},code=#{code.id}
+        WHERE id_jobs=#{id}
+    </select>
+
+</mapper>
