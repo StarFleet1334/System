@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.solvd.app.dao.IUserDao">
+
+    <resultMap id="userResultMap" type="com.solvd.app.tables.Users">
+        <id column="id" property="id"/>
+        <result column="full_name" property="full_name"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <sql id="body">
+        u.id,
+        u.full_name,
+        u.age,
+    </sql>
+
+    <select id="get" resultMap="userResultMap">
+            SELECT
+            <include refid="body"/>
+            FROM users u
+            WHERE id=#{id}
+    </select>
+
+
+    <select id="getAll" resultMap="userResultMap">
+        SELECT *
+        FROM users
+    </select>
+
+
+    <select id="delete">
+        DELETE
+        FROM users
+        WHERE id=#{id}
+    </select>
+
+
+    <select id="update">
+        UPDATE users
+        SET full_name=#{full_name},age=#{age}
+        WHERE id=#{id}
+    </select>
+
+    <select id="create">
+        INSERT INTO users (id,full_name,age,phones_id)
+        VALUES (#{id},#{full_name},#{age},#{phone.id})
+    </select>
+
+</mapper>
