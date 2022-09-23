@@ -8,12 +8,15 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        UserServiceImp serviceImp = new UserServiceImp();
-//        List<Users> list = serviceImp.getAll();
-//        for (Users user : list) {
-//            System.out.println(user.getId() + " " + user.getFull_name() + "  " + user.getAge());
-//        }
+        PhoneServiceImp phoneServiceImp = new PhoneServiceImp();
+
+       phoneServiceImp.create(
+               new Phones(8,"Margaritha","551435465")
+       );
 
 
+       phoneServiceImp.update(
+               new Phones(1,"Ilia",null)
+       );
     }
 }
