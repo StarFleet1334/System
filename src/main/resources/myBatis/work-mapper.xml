@@ -5,24 +5,99 @@
 
 <mapper namespace="com.solvd.app.dao.IWorksDao">
 
+    <resultMap id="allResultMap" type="com.solvd.app.tables.Works">
+        <result column="start_date" property="start_date"/>
+        <association property="users_id" javaType="com.solvd.app.tables.Users">
+            <id column="user_id" property="id"/>
+            <result column="full_name" property="full_name"/>
+            <result column="age" property="age"/>
+            <association property="phone" javaType="com.solvd.app.tables.Phones">
+                <id column="phone_id" property="id"/>
+                <result column="nick" property="full_name"/>
+                <result column="number" property="phone_number"/>
+            </association>
+        </association>
+
+        <association property="jobs_id" javaType="com.solvd.app.tables.Jobs">
+            <id column="id_jobs" property="id"/>
+            <result column="name" property="name"/>
+            <result column="description" property="description"/>
+            <association property="code" javaType="com.solvd.app.tables.CodeSalaries">
+                <id column="code" property="id"/>
+                <result column="salary" property="salary"/>
+            </association>
+        </association>
+    </resultMap>
 
 
 
-    <sql id="all">
-        u.id as user_id,
-        u.full_name as user_name,
-        u.age,
-        j.id as job_id,
-        j.name as job_name,
-        j.description as dec,
-        w.start_date
-    </sql>
-
-    <select id="getALl" resultMap="allResultMap">
+    <select id="getAll" resultMap="allResultMap">
         SELECT
-        <include refid="all"/>
+        u.id as user_id,
+        u.full_name,
+        u.age,
+        j.id_jobs,
+        j.name,
+        j.description,
+        (SELECT c.salary FROM codesalaries c WHERE id_code = j.code) as salary,
+        (SELECT p.id
+        FROM phones p
+        WHERE id = u.phones_id) as phone_id,
+        (SELECT p.full_name
+        FROM phones p
+        WHERE id = u.phones_id) as nick,
+        (SELECT p.phone_number
+        FROM phones p
+        WHERE id = u.phones_id) as number,
+        j.code,
+        w.start_date
         FROM works w inner join users u on w.users_id = u.id
-        inner join jobs j on w.users_id = j.id
+        inner join jobs j on w.jobs_id = j.id_jobs
     </select>
+
+
+    <select id="getById" resultMap="allResultMap">
+        SELECT
+        u.id as user_id,
+        u.full_name,
+        u.age,
+        j.id_jobs,
+        j.name,
+        j.description,
+        (SELECT c.salary FROM codesalaries c WHERE id_code = j.code) as salary,
+        (SELECT p.id
+        FROM phones p
+        WHERE id = u.phones_id) as phone_id,
+        (SELECT p.full_name
+        FROM phones p
+        WHERE id = u.phones_id) as nick,
+        (SELECT p.phone_number
+        FROM phones p
+        WHERE id = u.phones_id) as number,
+        j.code,
+        w.start_date
+        FROM works w inner join users u on w.users_id = u.id
+        inner join jobs j on w.jobs_id = j.id_jobs
+        WHERE w.users_id=#{user_id} and w.jobs_id=#{job_id}
+    </select>
+
+    <insert id="create">
+        INSERT INTO works (users_id,jobs_id,start_date)
+        VALUES (#{users_id.id},#{jobs_id.id},#{start_date})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM works
+        WHERE users_id = #{users_id.id}
+    </delete>
+
+    <insert id="update">
+        UPDATE works
+        SET jobs_id=#{jobs_id.id},start_date=#{start_date}
+        WHERE users_id=#{users_id.id}
+    </insert>
+
+
+
 
 </mapper>

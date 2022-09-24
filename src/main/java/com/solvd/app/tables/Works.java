@@ -15,6 +15,10 @@ public class Works {
         this.jobs_id = jobs_id;
         this.start_date = start_date;
     }
+    public Works(Users users_id,Jobs jobs_id) {
+        this.users_id = users_id;
+        this.jobs_id = jobs_id;
+    }
 
     public Users getUsers_id() {
         return users_id;
