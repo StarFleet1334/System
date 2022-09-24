@@ -27,21 +27,21 @@
         WHERE id_code=#{id}
     </select>
 
-    <select id="delete">
+    <delete id="delete">
         DELETE
         FROM codesalaries c
         WHERE id_code=#{id}
-    </select>
+    </delete>
 
-    <select id="update">
+    <update id="update">
         UPDATE codesalaries
         SET salary=#{salary}
         WHERE id_code=#{id}
-    </select>
+    </update>
 
-    <select id="create">
+    <insert id="create">
         INSERT INTO codesalaries (id_code,salary)
         VALUES (#{id},#{salary})
-    </select>
+    </insert>
 
 </mapper>

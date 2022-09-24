@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.app.dao.ITechnologiesDao">
+
+
+    <resultMap id="techResultMap" type="com.solvd.app.tables.Technologies">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pc" property="pc"/>
+        <result column="leptop" property="leptop"/>
+    </resultMap>
+
+    <sql id="body">
+        t.id_technologies as id,
+        t.name,
+        t.pc,
+        t.leptop
+    </sql>
+
+
+    <select id="getAll" resultMap="techResultMap">
+        SELECT
+        <include refid="body"/>
+        FROM technologies t
+    </select>
+
+    <select id="get" resultMap="techResultMap">
+        SELECT
+        <include refid="body"/>
+        FROM technologies t
+        WHERE id_technologies=#{id}
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM technologies
+        WHERE id_technologies=#{id}
+    </delete>
+
+    <insert id="create">
+        INSERT INTO technologies (id_technologies,name,pc,leptop,specs)
+        VALUES (#{id},#{name},#{pc},#{leptop},#{specs.id})
+    </insert>
+
+    <update id="update">
+        UPDATE technologies
+        SET name=#{name},pc=#{pc},leptop=#{leptop},specs=#{specs.id}
+        WHERE id_technologies=#{id}
+    </update>
+
+
+</mapper>

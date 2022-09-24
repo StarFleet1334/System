@@ -28,5 +28,8 @@
         <mapper resource="myBatis/phone-mapper.xml"/>
         <mapper resource="myBatis/salary-mapper.xml"/>
         <mapper resource="myBatis/job-mapper.xml"/>
+        <mapper resource="myBatis/spec-mapper.xml"/>
+        <mapper resource="myBatis/tech-mapper.xml"/>
+        <mapper resource="myBatis/work-mapper.xml"/>
     </mappers>
 </configuration>

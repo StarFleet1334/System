@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.solvd.app.dao.IWorksDao">
+
+
+
+
+    <sql id="all">
+        u.id as user_id,
+        u.full_name as user_name,
+        u.age,
+        j.id as job_id,
+        j.name as job_name,
+        j.description as dec,
+        w.start_date
+    </sql>
+
+    <select id="getALl" resultMap="allResultMap">
+        SELECT
+        <include refid="all"/>
+        FROM works w inner join users u on w.users_id = u.id
+        inner join jobs j on w.users_id = j.id
+    </select>
+
+</mapper>

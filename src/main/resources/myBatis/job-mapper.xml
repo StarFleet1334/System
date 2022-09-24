@@ -29,22 +29,22 @@
         WHERE id_jobs=#{id}
     </select>
 
-    <select id="delete">
+    <delete id="delete">
         DELETE
         FROM jobs
         WHERE id_jobs=#{id}
-    </select>
+    </delete>
 
 
-    <select id="create">
+    <insert id="create">
         INSERT INTO jobs (id_jobs,name,description,code)
         VALUES (#{id},#{name},#{description},#{code.id})
-    </select>
+    </insert>
 
-    <select id="update">
+    <update id="update">
         UPDATE jobs
         SET name=#{name},description=#{description},code=#{code.id}
         WHERE id_jobs=#{id}
-    </select>
+    </update>
 
 </mapper>

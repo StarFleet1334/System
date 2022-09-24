@@ -31,22 +31,22 @@
     </select>
 
 
-    <select id="delete">
+    <delete id="delete">
         DELETE
         FROM users
         WHERE id=#{id}
-    </select>
+    </delete>
 
 
-    <select id="update">
+    <update id="update">
         UPDATE users
         SET full_name=#{full_name},age=#{age}
         WHERE id=#{id}
-    </select>
+    </update>
 
-    <select id="create">
+    <insert id="create">
         INSERT INTO users (id,full_name,age,phones_id)
         VALUES (#{id},#{full_name},#{age},#{phone.id})
-    </select>
+    </insert>
 
 </mapper>
