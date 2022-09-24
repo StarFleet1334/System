@@ -31,5 +31,6 @@
         <mapper resource="myBatis/spec-mapper.xml"/>
         <mapper resource="myBatis/tech-mapper.xml"/>
         <mapper resource="myBatis/work-mapper.xml"/>
+        <mapper resource="myBatis/own-mapper.xml"/>
     </mappers>
 </configuration>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.app.dao.IOwnsDao">
+
+    <resultMap id="allResultMap" type="com.solvd.app.tables.Owns">
+        <result column="space" property="name"/>
+        <association property="users_id" javaType="com.solvd.app.tables.Users">
+            <id column="user_id" property="id"/>
+            <result column="full_name" property="full_name"/>
+            <result column="age" property="age"/>
+            <association property="phone" javaType="com.solvd.app.tables.Phones">
+                <id column="phones_id" property="id"/>
+                <result column="nick" property="full_name"/>
+                <result column="phone_number" property="phone_number"/>
+            </association>
+        </association>
+        <association property="technologies_id" javaType="com.solvd.app.tables.Technologies">
+            <id column="tech_id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="pc" property="pc"/>
+            <result column="leptop" property="leptop"/>
+            <association property="specs" javaType="com.solvd.app.tables.Specs">
+                <id column="specs" property="id"/>
+                <result column="op" property="operating_system"/>
+                <result column="model" property="model"/>
+                <result column="memory" property="memory"/>
+                <result column="sys" property="system_manufacturer"/>
+            </association>
+        </association>
+    </resultMap>
+
+
+
+    <select id="getAll" resultMap="allResultMap">
+        SELECT f.user_id,f.full_name,f.age,f.phones_id,f.nick,f.phone_number,
+        s.tech_id,s.name,s.pc,s.leptop,s.specs,s.memory,s.model,s.op,s.sys,
+        o.name as space
+        FROM owns o inner join (
+        SELECT
+        u.id as user_id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u inner join phones p on u.phones_id = p.id ) as f on o.user_id = f.user_id
+        inner join (
+        SELECT
+        t.id_technologies as tech_id,t.name,t.leptop,t.pc,t.specs,s.memory,s.model,s.operating_system as op,s.system_manufacturer as sys
+        FROM technologies t inner join specs s on t.specs = s.id
+        ) as s on o.technology_id = s.tech_id
+    </select>
+
+
+    <select id="getById" resultMap="allResultMap">
+        SELECT f.user_id,f.full_name,f.age,f.phones_id,f.nick,f.phone_number,
+        s.tech_id,s.name,s.pc,s.leptop,s.specs,s.memory,s.model,s.op,s.sys,
+        o.name as space
+        FROM owns o inner join (
+        SELECT
+        u.id as user_id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u inner join phones p on u.phones_id = p.id ) as f on o.user_id = f.user_id
+        inner join (
+        SELECT
+        t.id_technologies as tech_id,t.name,t.leptop,t.pc,t.specs,s.memory,s.model,s.operating_system as op,s.system_manufacturer as sys
+        FROM technologies t inner join specs s on t.specs = s.id
+        ) as s on o.technology_id = s.tech_id
+        WHERE o.user_id=#{users_id} and o.technology_id=#{tech_id}
+    </select>
+
+
+    <insert id="create">
+        INSERT INTO owns (user_id,technology_id,name)
+        VALUES (#{users_id.id},#{technologies_id.id},#{name})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM owns
+        WHERE user_id=#{users_id.id}
+    </delete>
+
+    <update id="update">
+        UPDATE owns
+        SET technology_id=#{technologies_id.id},name=#{name}
+        WHERE user_id=#{users_id.id}
+    </update>
+
+
+</mapper>
