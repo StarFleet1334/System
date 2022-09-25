@@ -8,24 +8,21 @@
         <id column="id_jobs" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
+        <association property="code" javaType="com.solvd.app.tables.CodeSalaries">
+            <id column="code" property="id"/>
+            <result column="salary" property="salary"/>
+        </association>
     </resultMap>
-
-    <sql id="body">
-        j.id_jobs,
-        j.name,
-        j.description
-    </sql>
 
 
     <select id="getAll" resultMap="jobResultMap">
-        SELECT *
-        FROM jobs
+        SELECT j.id_jobs,j.name,j.description,j.code,c.salary
+        FROM jobs j inner join codesalaries c on j.code = c.id_code
     </select>
 
     <select id="get" resultMap="jobResultMap">
-        SELECT
-        <include refid="body"/>
-        FROM jobs j
+        SELECT j.id_jobs,j.name,j.description,j.code,c.salary
+        FROM jobs j inner join codesalaries c on j.code = c.id_code
         WHERE id_jobs=#{id}
     </select>
 

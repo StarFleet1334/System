@@ -9,25 +9,25 @@
         <id column="id" property="id"/>
         <result column="full_name" property="full_name"/>
         <result column="age" property="age"/>
+        <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <id column="phones_id" property="id"/>
+            <result column="nick" property="full_name"/>
+            <result column="phone_number" property="phone_number"/>
+        </association>
     </resultMap>
 
-    <sql id="body">
-        u.id,
-        u.full_name,
-        u.age,
-    </sql>
+
 
     <select id="get" resultMap="userResultMap">
-            SELECT
-            <include refid="body"/>
-            FROM users u
-            WHERE id=#{id}
+        SELECT u.id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u  left join phones p on u.phones_id = p.id
+        WHERE u.id=#{id}
     </select>
 
 
     <select id="getAll" resultMap="userResultMap">
-        SELECT *
-        FROM users
+        SELECT u.id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u  left join phones p on u.phones_id = p.id
     </select>
 
 

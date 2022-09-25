@@ -6,30 +6,28 @@
 
 
     <resultMap id="techResultMap" type="com.solvd.app.tables.Technologies">
-        <id column="id" property="id"/>
+        <id column="tech_id" property="id"/>
         <result column="name" property="name"/>
         <result column="pc" property="pc"/>
         <result column="leptop" property="leptop"/>
+        <association property="specs" javaType="com.solvd.app.tables.Specs">
+            <id column="specs" property="id"/>
+            <result column="op" property="operating_system"/>
+            <result column="model" property="model"/>
+            <result column="memory" property="memory"/>
+            <result column="sys" property="system_manufacturer"/>
+        </association>
     </resultMap>
-
-    <sql id="body">
-        t.id_technologies as id,
-        t.name,
-        t.pc,
-        t.leptop
-    </sql>
 
 
     <select id="getAll" resultMap="techResultMap">
-        SELECT
-        <include refid="body"/>
-        FROM technologies t
+        SELECT t.id_technologies as tech_id,t.name,t.pc,t.leptop,t.specs,s.operating_system as op,s.model,s.memory,s.system_manufacturer as sys
+        FROM technologies t inner join specs s on t.specs = s.id
     </select>
 
     <select id="get" resultMap="techResultMap">
-        SELECT
-        <include refid="body"/>
-        FROM technologies t
+        SELECT t.id_technologies as tech_id,t.name,t.pc,t.leptop,t.specs,s.operating_system as op,s.model,s.memory,s.system_manufacturer as sys
+        FROM technologies t inner join specs s on t.specs = s.id
         WHERE id_technologies=#{id}
     </select>
 
