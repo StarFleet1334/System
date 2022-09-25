@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.solvd.app.dao.ICallsDao">
+
+    <resultMap id="allResultMap" type="com.solvd.app.tables.Calls">
+        <association property="users_id" javaType="com.solvd.app.tables.Users">
+            <id column="user_id" property="id"/>
+            <association property="phone" javaType="com.solvd.app.tables.Phones">
+                <id column="phones_id" property="id"/>
+            </association>
+        </association>
+        <association property="callsStorage_id" javaType="com.solvd.app.tables.CallsStorage">
+            <id column="storage" property="id"/>
+            <association property="from_user" javaType="com.solvd.app.tables.Users">
+                <id column="user_id" property="id"/>
+            </association>
+            <association property="to_user" javaType="com.solvd.app.tables.Users">
+                <id column="to_user" property="id"/>
+            </association>
+        </association>
+    </resultMap>
+
+
+    <select id="getAll" resultMap="allResultMap">
+        SELECT f.user_id,f.phones_id,c.calls_storage_id as storage,ca.to_user
+        FROM calls c inner join
+        (SELECT u.id as user_id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u left join phones p on u.phones_id = p.id) as f on c.user_id = f.user_id
+        inner join callsstorage ca on c.calls_storage_id = ca.id
+    </select>
+
+    <select id="getById" resultMap="allResultMap">
+        SELECT f.user_id,f.phones_id,c.calls_storage_id as storage,ca.to_user
+        FROM calls c inner join
+        (SELECT u.id as user_id,u.full_name,u.age,u.phones_id,p.full_name as nick,p.phone_number
+        FROM users u left join phones p on u.phones_id = p.id) as f on c.user_id = f.user_id
+        inner join callsstorage ca on c.calls_storage_id = ca.id
+        WHERE c.user_id = #{user_id} and c.calls_storage_id = #{call_storage_id}
+    </select>
+
+
+    <delete id="delete">
+        DELETE FROM calls
+        WHERE user_id = #{users_id.id}
+    </delete>
+
+    <update id="update">
+        UPDATE calls
+        SET calls_storage_id = #{callsStorage_id.id}
+        WHERE user_id = #{users_id.id}
+    </update>
+
+    <insert id="create">
+        INSERT INTO calls (user_id,calls_storage_id)
+        VALUES (#{users_id.id},#{callsStorage_id.id})
+    </insert>
+
+</mapper>
