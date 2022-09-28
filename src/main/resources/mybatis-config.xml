@@ -35,5 +35,6 @@
         <mapper resource="myBatis/email-mapper.xml"/>
         <mapper resource="myBatis/call-mapper.xml"/>
         <mapper resource="myBatis/emailstorage-mapper.xml"/>
+        <mapper resource="myBatis/callstorage-mapper.xml"/>
     </mappers>
 </configuration>
