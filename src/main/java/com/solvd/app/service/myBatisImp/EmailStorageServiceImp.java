@@ -1,10 +1,9 @@
 package com.solvd.app.service.myBatisImp;
 
 import com.solvd.app.MybatisFactory;
-import com.solvd.app.dao.ISpecsDao;
-import com.solvd.app.dao.ITechnologiesDao;
-import com.solvd.app.service.ITechnologiesService;
-import com.solvd.app.tables.Technologies;
+import com.solvd.app.dao.IEmailsStorageDao;
+import com.solvd.app.service.IEmailStorageService;
+import com.solvd.app.tables.EmailsStorage;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -13,20 +12,20 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TechnologiesServiceImp implements ITechnologiesService {
+public class EmailStorageServiceImp implements IEmailStorageService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-    private static final Logger LOGGER = LogManager.getLogger(TechnologiesServiceImp.class);
+    private static final Logger LOGGER = LogManager.getLogger(EmailStorageServiceImp.class);
 
     @Override
-    public List<Technologies> getAll() throws SQLException {
+    public List<EmailsStorage> getAll() throws SQLException {
         assert sqlSessionFactory != null;
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
-            ITechnologiesDao iTechnologiesDao = session.getMapper(ITechnologiesDao.class);
-            return iTechnologiesDao.getAll();
+            IEmailsStorageDao iEmailsStorageDao = session.getMapper(IEmailsStorageDao.class);
+            return iEmailsStorageDao.getAll();
         } catch (SQLException e) {
-            LOGGER.error("Error,occurred while getting list of technologies");
+            LOGGER.error("Error,occurred while getting list of EmailsStorage");
         }
         finally {
             assert session != null;
@@ -36,15 +35,15 @@ public class TechnologiesServiceImp implements ITechnologiesService {
     }
 
     @Override
-    public Technologies get(int id) throws SQLException {
+    public EmailsStorage get(int id) throws SQLException {
         assert sqlSessionFactory != null;
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
-            ITechnologiesDao iTechnologiesDao = session.getMapper(ITechnologiesDao.class);
-            return iTechnologiesDao.get(id);
+            IEmailsStorageDao iEmailsStorageDao = session.getMapper(IEmailsStorageDao.class);
+            return iEmailsStorageDao.get(id);
         } catch (SQLException e) {
-            LOGGER.error("Error,occurred while getting technologies by id");
+            LOGGER.error("Error,occurred while getting EmailsStorage by id");
         }
         finally {
             assert session != null;
@@ -54,32 +53,13 @@ public class TechnologiesServiceImp implements ITechnologiesService {
     }
 
     @Override
-    public void update(Technologies technologies) throws SQLException {
+    public void update(EmailsStorage emailsStorage) throws SQLException {
         assert sqlSessionFactory != null;
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
-            ITechnologiesDao iTechnologiesDao = session.getMapper(ITechnologiesDao.class);
-            iTechnologiesDao.update(technologies);
-            session.commit();
-        } catch (SQLException e) {
-            session.rollback();
-        }
-        finally {
-            assert session != null;
-            session.close();
-        }
-
-    }
-
-    @Override
-    public void delete(Technologies technologies) throws SQLException {
-        assert sqlSessionFactory != null;
-        SqlSession session = null;
-        try {
-            session = sqlSessionFactory.openSession();
-            ITechnologiesDao iTechnologiesDao = session.getMapper(ITechnologiesDao.class);
-            iTechnologiesDao.delete(technologies);
+            IEmailsStorageDao iEmailsStorageDao = session.getMapper(IEmailsStorageDao.class);
+            iEmailsStorageDao.update(emailsStorage);
             session.commit();
         } catch (SQLException e) {
             session.rollback();
@@ -91,13 +71,31 @@ public class TechnologiesServiceImp implements ITechnologiesService {
     }
 
     @Override
-    public void create(Technologies technologies) throws SQLException {
+    public void delete(EmailsStorage emailsStorage) throws SQLException {
         assert sqlSessionFactory != null;
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
-            ITechnologiesDao iTechnologiesDao = session.getMapper(ITechnologiesDao.class);
-            iTechnologiesDao.create(technologies);
+            IEmailsStorageDao iEmailsStorageDao = session.getMapper(IEmailsStorageDao.class);
+            iEmailsStorageDao.delete(emailsStorage);
+            session.commit();
+        } catch (SQLException e) {
+            session.rollback();
+        }
+        finally {
+            assert session != null;
+            session.close();
+        }
+    }
+
+    @Override
+    public void create(EmailsStorage emailsStorage) throws SQLException {
+        assert sqlSessionFactory != null;
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            IEmailsStorageDao iEmailsStorageDao = session.getMapper(IEmailsStorageDao.class);
+            iEmailsStorageDao.create(emailsStorage);
             session.commit();
         } catch (SQLException e) {
             session.rollback();

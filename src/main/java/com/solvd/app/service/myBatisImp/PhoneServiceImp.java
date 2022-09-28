@@ -7,12 +7,15 @@ import com.solvd.app.service.IPhoneService;
 import com.solvd.app.tables.Phones;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class PhoneServiceImp implements IPhoneService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
+    private static final Logger LOGGER = LogManager.getLogger(PhoneServiceImp.class);
 
     @Override
     public List<Phones> getAll() throws SQLException {
@@ -23,7 +26,7 @@ public class PhoneServiceImp implements IPhoneService {
             IPhonesDao iPhonDao = session.getMapper(IPhonesDao.class);
             return iPhonDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of phones");
         }
         finally {
             assert session != null;
@@ -41,7 +44,7 @@ public class PhoneServiceImp implements IPhoneService {
             IPhonesDao iPhonDao = session.getMapper(IPhonesDao.class);
             return iPhonDao.get(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting phones by id");
         }
         finally {
             assert session != null;

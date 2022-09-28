@@ -7,13 +7,15 @@ import com.solvd.app.service.ICallService;
 import com.solvd.app.tables.Calls;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class CallServiceImp implements ICallService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-
+    private static final Logger LOGGER = LogManager.getLogger(CallServiceImp.class);
 
     @Override
     public List<Calls> getAll() throws SQLException {
@@ -24,7 +26,7 @@ public class CallServiceImp implements ICallService {
             ICallsDao iCallsDao = session.getMapper(ICallsDao.class);
             return iCallsDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error Occurred in CallServiceImp, While getting List of Calls");
         }
         finally {
             assert session != null;
@@ -101,7 +103,7 @@ public class CallServiceImp implements ICallService {
             ICallsDao iCallsDao = session.getMapper(ICallsDao.class);
             return iCallsDao.getById(user_id,call_storage_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error Occurred in CallServiceImp, While getting Calls by ids");
         }
         finally {
             assert session != null;

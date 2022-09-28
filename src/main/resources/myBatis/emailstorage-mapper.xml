@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.app.dao.IEmailsStorageDao">
+
+    <resultMap id="allResultMap" type="com.solvd.app.tables.EmailsStorage">
+        <id column="main" property="id"/>
+        <result column="text" property="text"/>
+        <result column="time" property="send_time"/>
+        <association property="email_from_user" javaType="com.solvd.app.tables.Users">
+            <id column="from_id" property="id"/>
+            <result column="from_user" property="full_name"/>
+            <result column="from_age" property="age" />
+            <association property="phone" javaType="com.solvd.app.tables.Phones">
+                <id column="from_phone" property="id"/>
+            </association>
+        </association>
+        <association property="email_to_user" javaType="com.solvd.app.tables.Users">
+            <id column="to_id" property="id"/>
+            <result column="to_user" property="full_name"/>
+            <result column="to_age" property="age"/>
+            <association property="phone" javaType="com.solvd.app.tables.Phones">
+                <id column="to_phone" property="id"/>
+            </association>
+        </association>
+    </resultMap>
+
+
+    <select id="getAll" resultMap="allResultMap">
+        SELECT o.id as main,f.id as from_id,f.full_name as from_user,f.age as from_age,f.phones_id as from_phone,s.id as to_id,s.full_name as to_user,s.age as to_age,s.phones_id as to_phone,o.text,o.time
+        FROM emailsstorage o inner join users f on o.email_from_user = f.id
+        inner join users s on o.email_to_user = s.id
+    </select>
+
+
+    <select id="get" resultMap="allResultMap">
+        SELECT o.id as main,f.id as from_id,f.full_name as from_user,f.age as from_age,f.phones_id as from_phone,s.id as to_id,s.full_name as to_user,s.age as to_age,s.phones_id as to_phone,o.text,o.time
+        FROM emailsstorage o inner join users f on o.email_from_user = f.id
+        inner join users s on o.email_to_user = s.id
+        WHERE o.id=#{id}
+    </select>
+
+    <insert id="create">
+        INSERT INTO emailsstorage (id,email_from_user,email_to_user,text,time)
+        VALUES (#{id},#{email_from_user.id},#{email_to_user.id},#{text},#{send_time})
+    </insert>
+
+
+    <update id="update">
+        UPDATE emailsstorage
+        SET text=#{text}, time=#{send_time}
+        WHERE id=#{id}
+    </update>
+
+
+    <delete id="delete">
+        DELETE FROM emailsstorage
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

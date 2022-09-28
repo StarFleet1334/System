@@ -6,6 +6,8 @@ import com.solvd.app.service.IUserService;
 import com.solvd.app.tables.Users;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.List;
 public class UserServiceImp implements IUserService {
 
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImp.class);
 
     @Override
     public List<Users> getAll() throws SQLException {
@@ -24,7 +26,7 @@ public class UserServiceImp implements IUserService {
             IUserDao iUserDao = session.getMapper(IUserDao.class);
             return iUserDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of users");
         }
         finally {
             assert session != null;
@@ -43,7 +45,7 @@ public class UserServiceImp implements IUserService {
             IUserDao iUserDao = session.getMapper(IUserDao.class);
             return iUserDao.get(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting users by id");
         }
         finally {
             assert session != null;

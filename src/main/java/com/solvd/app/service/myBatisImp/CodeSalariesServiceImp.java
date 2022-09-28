@@ -7,12 +7,15 @@ import com.solvd.app.service.ICodeSalariesService;
 import com.solvd.app.tables.CodeSalaries;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class CodeSalariesServiceImp implements ICodeSalariesService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
+    private static final Logger LOGGER = LogManager.getLogger(CodeSalariesServiceImp.class);
 
     @Override
     public List<CodeSalaries> getAll() throws SQLException {
@@ -23,7 +26,7 @@ public class CodeSalariesServiceImp implements ICodeSalariesService {
             ICodeSalariesDao iCodeSalariesDao = session.getMapper(ICodeSalariesDao.class);
             return iCodeSalariesDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error, Occurred in CodeSalariesServiceImp while getting List of Salaries");
         }
         finally {
             assert session != null;
@@ -41,7 +44,7 @@ public class CodeSalariesServiceImp implements ICodeSalariesService {
             ICodeSalariesDao iCodeSalariesDao = session.getMapper(ICodeSalariesDao.class);
             return iCodeSalariesDao.get(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error, Occurred in CodeSalariesServiceImp while getting Salary by id");
         }
         finally {
             assert session != null;

@@ -7,13 +7,15 @@ import com.solvd.app.service.IWorkService;
 import com.solvd.app.tables.Works;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class WorkServiceImp implements IWorkService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-
+    private static final Logger LOGGER = LogManager.getLogger(WorkServiceImp.class);
 
     @Override
     public List<Works> getAll() throws SQLException {
@@ -24,7 +26,7 @@ public class WorkServiceImp implements IWorkService {
             IWorksDao iWorksDao = session.getMapper(IWorksDao.class);
             return iWorksDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of works");
         }
         finally {
             assert session != null;
@@ -101,7 +103,7 @@ public class WorkServiceImp implements IWorkService {
             IWorksDao iWorksDao = session.getMapper(IWorksDao.class);
             return iWorksDao.getById(user_id,job_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting works by ids");
         }
         finally {
             assert session != null;

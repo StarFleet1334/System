@@ -1,21 +1,46 @@
 package com.solvd.app.service.myBatisImp;
 
-import com.solvd.app.tables.*;
+import com.solvd.app.tables.EmailsStorage;
+import com.solvd.app.tables.Phones;
+import com.solvd.app.tables.Users;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import static java.time.LocalDateTime.now;
+
 public class Main {
     public static void main(String[] args) throws SQLException {
 
-       TechnologiesServiceImp serviceImp = new TechnologiesServiceImp();
+      EmailStorageServiceImp emailStorageImp = new EmailStorageServiceImp();
 
-       Technologies x = serviceImp.get(6);
-           System.out.println("Technologies : ");
-           System.out.println(x.getId() + " " + x.getName() + " " + x.getPc() + " " + x.getLeptop());
-           System.out.println("Specs : ");
-           System.out.println(x.getSpecs().getId() + " " + x.getSpecs().getOperating_system() + " " + x.getSpecs().getModel() + " " + x.getSpecs().getMemory() + " " + x.getSpecs().getSystem_manufacturer());
+      EmailsStorage x = emailStorageImp.get(3);
+
+
+
+            System.out.println(x.getId());
+            Users from = x.getEmail_from_user();
+            Users to = x.getEmail_to_user();
+            System.out.println("From User : ");
+            System.out.println(from.getId() + " " + from.getFull_name() + " " + from.getAge());
+            System.out.println("Phone : ");
+            if (from.getPhone() != null) {
+                System.out.println(from.getPhone().getId());
+            } else {
+                System.out.println("Null");
+            }
+
+            System.out.println("To User : ");
+            System.out.println(to.getId() + " " + to.getFull_name() + " " + to.getAge());
+            System.out.println("Phone : ");
+            if (to.getPhone() != null) {
+                System.out.println(to.getPhone().getId());
+            } else {
+                System.out.println("Null");
+            }
+            System.out.println(x.getText());
+            System.out.println(x.getSend_time());
 
 
     }

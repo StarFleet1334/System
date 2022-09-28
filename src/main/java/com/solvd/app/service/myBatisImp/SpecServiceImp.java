@@ -7,12 +7,15 @@ import com.solvd.app.service.ISpecsService;
 import com.solvd.app.tables.Specs;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class SpecServiceImp implements ISpecsService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
+    private static final Logger LOGGER = LogManager.getLogger(SpecServiceImp.class);
 
     @Override
     public List<Specs> getAll() throws SQLException {
@@ -23,7 +26,7 @@ public class SpecServiceImp implements ISpecsService {
             ISpecsDao iSpecsDao = session.getMapper(ISpecsDao.class);
             return iSpecsDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of specs");
         }
         finally {
             assert session != null;
@@ -41,7 +44,7 @@ public class SpecServiceImp implements ISpecsService {
             ISpecsDao iSpecsDao = session.getMapper(ISpecsDao.class);
             return iSpecsDao.get(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting specs by id");
         }
         finally {
             assert session != null;

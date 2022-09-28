@@ -7,13 +7,15 @@ import com.solvd.app.service.IOwnService;
 import com.solvd.app.tables.Owns;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class OwnServiceImp implements IOwnService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-
+    private static final Logger LOGGER = LogManager.getLogger(OwnServiceImp.class);
 
     @Override
     public List<Owns> getAll() throws SQLException {
@@ -24,7 +26,7 @@ public class OwnServiceImp implements IOwnService {
             IOwnsDao iOwnsDao = session.getMapper(IOwnsDao.class);
             return iOwnsDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of owns");
         }
         finally {
             assert session != null;
@@ -101,7 +103,7 @@ public class OwnServiceImp implements IOwnService {
             IOwnsDao iOwnsDao = session.getMapper(IOwnsDao.class);
             return iOwnsDao.getById(users_id,tech_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting owns by ids");
         }
         finally {
             assert session != null;

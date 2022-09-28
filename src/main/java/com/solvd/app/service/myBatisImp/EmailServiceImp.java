@@ -7,13 +7,15 @@ import com.solvd.app.service.IEmailService;
 import com.solvd.app.tables.Emails;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class EmailServiceImp implements IEmailService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
-
+    private static final Logger LOGGER = LogManager.getLogger(EmailServiceImp.class);
 
     @Override
     public List<Emails> getAll() throws SQLException {
@@ -24,7 +26,7 @@ public class EmailServiceImp implements IEmailService {
             IEmailsDao iEmailsDao = session.getMapper(IEmailsDao.class);
             return iEmailsDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error, occurred in EmailServiceImp while getting List of Emails");
         }
         finally {
             assert session != null;
@@ -101,7 +103,7 @@ public class EmailServiceImp implements IEmailService {
             IEmailsDao iEmailsDao = session.getMapper(IEmailsDao.class);
             return iEmailsDao.getById(user_id,emails_storage_id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error, occurred in EmailServiceImp while getting Email by ids");
         }
         finally {
             assert session != null;

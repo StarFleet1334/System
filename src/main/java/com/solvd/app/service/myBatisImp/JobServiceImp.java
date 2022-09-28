@@ -7,12 +7,16 @@ import com.solvd.app.service.IJobService;
 import com.solvd.app.tables.Jobs;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobServiceImp implements IJobService {
     private final static SqlSessionFactory sqlSessionFactory = MybatisFactory.getSqlSessionFactory();
+    private static final Logger LOGGER = LogManager.getLogger(JobServiceImp.class);
+
 
     @Override
     public List<Jobs> getAll() throws SQLException {
@@ -23,7 +27,7 @@ public class JobServiceImp implements IJobService {
             IJobsDao iJobsDao = session.getMapper(IJobsDao.class);
             return iJobsDao.getAll();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting list of jobs");
         }
         finally {
             assert session != null;
@@ -42,7 +46,7 @@ public class JobServiceImp implements IJobService {
             IJobsDao iJobsDao = session.getMapper(IJobsDao.class);
             return iJobsDao.get(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Error,occurred while getting jobs by id");
         }
         finally {
             assert session != null;
