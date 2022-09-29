@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.IOwnsDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IOwnsDao">
 
-    <resultMap id="allResultMap" type="com.solvd.app.tables.Owns">
+    <resultMap id="allResultMap" type="com.solvd.app.models.Owns">
         <result column="space" property="name"/>
-        <association property="users_id" javaType="com.solvd.app.tables.Users">
+        <association property="users_id" javaType="com.solvd.app.models.Users">
             <id column="user_id" property="id"/>
             <result column="full_name" property="full_name"/>
             <result column="age" property="age"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="phones_id" property="id"/>
                 <result column="nick" property="full_name"/>
                 <result column="phone_number" property="phone_number"/>
             </association>
         </association>
-        <association property="technologies_id" javaType="com.solvd.app.tables.Technologies">
+        <association property="technologies_id" javaType="com.solvd.app.models.Technologies">
             <id column="tech_id" property="id"/>
             <result column="name" property="name"/>
             <result column="pc" property="pc"/>
             <result column="leptop" property="leptop"/>
-            <association property="specs" javaType="com.solvd.app.tables.Specs">
+            <association property="specs" javaType="com.solvd.app.models.Specs">
                 <id column="specs" property="id"/>
                 <result column="op" property="operating_system"/>
                 <result column="model" property="model"/>

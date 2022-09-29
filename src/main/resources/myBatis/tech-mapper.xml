@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.ITechnologiesDao">
+<mapper namespace="com.solvd.app.dao.jdbc.ITechnologiesDao">
 
 
-    <resultMap id="techResultMap" type="com.solvd.app.tables.Technologies">
+    <resultMap id="techResultMap" type="com.solvd.app.models.Technologies">
         <id column="tech_id" property="id"/>
         <result column="name" property="name"/>
         <result column="pc" property="pc"/>
         <result column="leptop" property="leptop"/>
-        <association property="specs" javaType="com.solvd.app.tables.Specs">
+        <association property="specs" javaType="com.solvd.app.models.Specs">
             <id column="specs" property="id"/>
             <result column="op" property="operating_system"/>
             <result column="model" property="model"/>

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.IJobsDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IJobsDao">
 
-    <resultMap id="jobResultMap" type="com.solvd.app.tables.Jobs">
+    <resultMap id="jobResultMap" type="com.solvd.app.models.Jobs">
         <id column="id_jobs" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>
-        <association property="code" javaType="com.solvd.app.tables.CodeSalaries">
+        <association property="code" javaType="com.solvd.app.models.CodeSalaries">
             <id column="code" property="id"/>
             <result column="salary" property="salary"/>
         </association>

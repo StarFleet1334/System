@@ -3,21 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.solvd.app.dao.ICallsDao">
+<mapper namespace="com.solvd.app.dao.jdbc.ICallsDao">
 
-    <resultMap id="allResultMap" type="com.solvd.app.tables.Calls">
-        <association property="users_id" javaType="com.solvd.app.tables.Users">
+    <resultMap id="allResultMap" type="com.solvd.app.models.Calls">
+        <association property="users_id" javaType="com.solvd.app.models.Users">
             <id column="user_id" property="id"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="phones_id" property="id"/>
             </association>
         </association>
-        <association property="callsStorage_id" javaType="com.solvd.app.tables.CallsStorage">
+        <association property="callsStorage_id" javaType="com.solvd.app.models.CallsStorage">
             <id column="storage" property="id"/>
-            <association property="from_user" javaType="com.solvd.app.tables.Users">
+            <association property="from_user" javaType="com.solvd.app.models.Users">
                 <id column="user_id" property="id"/>
             </association>
-            <association property="to_user" javaType="com.solvd.app.tables.Users">
+            <association property="to_user" javaType="com.solvd.app.models.Users">
                 <id column="to_user" property="id"/>
             </association>
         </association>

@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.solvd.app.dao.IUserDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IUserDao">
 
-    <resultMap id="userResultMap" type="com.solvd.app.tables.Users">
+    <resultMap id="userResultMap" type="com.solvd.app.models.Users">
         <id column="id" property="id"/>
         <result column="full_name" property="full_name"/>
         <result column="age" property="age"/>
-        <association property="phone" javaType="com.solvd.app.tables.Phones">
+        <association property="phone" javaType="com.solvd.app.models.Phones">
             <id column="phones_id" property="id"/>
             <result column="nick" property="full_name"/>
             <result column="phone_number" property="phone_number"/>

@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.IEmailsStorageDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IEmailsStorageDao">
 
-    <resultMap id="allResultMap" type="com.solvd.app.tables.EmailsStorage">
+    <resultMap id="allResultMap" type="com.solvd.app.models.EmailsStorage">
         <id column="main" property="id"/>
         <result column="text" property="text"/>
         <result column="time" property="send_time"/>
-        <association property="email_from_user" javaType="com.solvd.app.tables.Users">
+        <association property="email_from_user" javaType="com.solvd.app.models.Users">
             <id column="from_id" property="id"/>
             <result column="from_user" property="full_name"/>
             <result column="from_age" property="age" />
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="from_phone" property="id"/>
             </association>
         </association>
-        <association property="email_to_user" javaType="com.solvd.app.tables.Users">
+        <association property="email_to_user" javaType="com.solvd.app.models.Users">
             <id column="to_id" property="id"/>
             <result column="to_user" property="full_name"/>
             <result column="to_age" property="age"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="to_phone" property="id"/>
             </association>
         </association>

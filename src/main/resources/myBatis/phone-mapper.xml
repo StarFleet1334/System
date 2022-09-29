@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.IPhonesDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IPhonesDao">
 
-    <resultMap id="phoneResultMap" type="com.solvd.app.tables.Phones">
+    <resultMap id="phoneResultMap" type="com.solvd.app.models.Phones">
         <id column="id" property="id"/>
         <id column="full_name" property="full_name"/>
         <id column="phone_number" property="phone_number"/>

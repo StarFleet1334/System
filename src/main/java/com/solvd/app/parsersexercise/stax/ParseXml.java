@@ -1,7 +1,7 @@
 package com.solvd.app.parsersexercise.stax;
 
-import com.solvd.app.tables.Phones;
-import com.solvd.app.tables.Users;
+import com.solvd.app.models.Phones;
+import com.solvd.app.models.Users;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;

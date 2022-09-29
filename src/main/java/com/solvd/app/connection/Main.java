@@ -1,7 +1,8 @@
 package com.solvd.app.connection;
 
+import com.solvd.app.dao.jdbc.jdbcImp.*;
 import com.solvd.app.dao.jdbc.*;
-import com.solvd.app.tables.*;
+import com.solvd.app.models.*;
 
 import java.io.IOException;
 import java.sql.Connection;

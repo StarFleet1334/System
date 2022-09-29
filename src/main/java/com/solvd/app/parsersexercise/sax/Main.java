@@ -1,6 +1,6 @@
 package com.solvd.app.parsersexercise.sax;
 
-import com.solvd.app.tables.Jobs;
+import com.solvd.app.models.Jobs;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;

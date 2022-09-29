@@ -3,26 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.solvd.app.dao.IWorksDao">
+<mapper namespace="com.solvd.app.dao.jdbc.IWorksDao">
 
-    <resultMap id="allResultMap" type="com.solvd.app.tables.Works">
+    <resultMap id="allResultMap" type="com.solvd.app.models.Works">
         <result column="start_date" property="start_date"/>
-        <association property="users_id" javaType="com.solvd.app.tables.Users">
+        <association property="users_id" javaType="com.solvd.app.models.Users">
             <id column="user_id" property="id"/>
             <result column="full_name" property="full_name"/>
             <result column="age" property="age"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="phone_id" property="id"/>
                 <result column="nick" property="full_name"/>
                 <result column="number" property="phone_number"/>
             </association>
         </association>
 
-        <association property="jobs_id" javaType="com.solvd.app.tables.Jobs">
+        <association property="jobs_id" javaType="com.solvd.app.models.Jobs">
             <id column="id_jobs" property="id"/>
             <result column="name" property="name"/>
             <result column="description" property="description"/>
-            <association property="code" javaType="com.solvd.app.tables.CodeSalaries">
+            <association property="code" javaType="com.solvd.app.models.CodeSalaries">
                 <id column="code" property="id"/>
                 <result column="salary" property="salary"/>
             </association>

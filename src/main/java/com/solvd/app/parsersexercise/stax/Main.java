@@ -1,6 +1,6 @@
 package com.solvd.app.parsersexercise.stax;
 
-import com.solvd.app.tables.Users;
+import com.solvd.app.models.Users;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;

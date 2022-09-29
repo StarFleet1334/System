@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.app.dao.ICallsStorageDao">
+<mapper namespace="com.solvd.app.dao.jdbc.ICallsStorageDao">
 
-    <resultMap id="allResultMap" type="com.solvd.app.tables.CallsStorage">
+    <resultMap id="allResultMap" type="com.solvd.app.models.CallsStorage">
         <id column="main" property="id"/>
-        <association property="from_user" javaType="com.solvd.app.tables.Users">
+        <association property="from_user" javaType="com.solvd.app.models.Users">
             <id column="from_id" property="id"/>
             <result column="from_user" property="full_name"/>
             <result column="from_age" property="age"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="from_phone" property="id"/>
             </association>
         </association>
-        <association property="to_user" javaType="com.solvd.app.tables.Users">
+        <association property="to_user" javaType="com.solvd.app.models.Users">
             <id column="to_id" property="id"/>
             <result column="to_user" property="full_name"/>
             <result column="to_age" property="age"/>
-            <association property="phone" javaType="com.solvd.app.tables.Phones">
+            <association property="phone" javaType="com.solvd.app.models.Phones">
                 <id column="to_phone" property="id"/>
             </association>
         </association>
