@@ -1,0 +1,10 @@
+package com.solvd.app.patterns.behavioral.observer;
+
+import java.util.List;
+import java.util.Map;
+
+public interface Purchaser {
+    void addToWishList(String name);
+
+    List<String> getNewsPapers();
+}
