@@ -10,9 +10,12 @@ public class Manager {
 
     private Map<String, List<Purchaser>> map = new HashMap<>();
 
+    private List<Purchaser> list = new ArrayList<>();
+
     public Manager() {}
 
     public void subscribe(Purchaser purchaser) {
+        attachObserver(purchaser);
         for (int i = 0; i < purchaser.getNewsPapers().size(); i++) {
             List<Purchaser> purchasers = map.get(purchaser.getNewsPapers().get(i));
             if (purchasers != null) {
@@ -35,8 +38,22 @@ public class Manager {
 
     public void publish(String name){
         map.put(name,new ArrayList<>());
+        notifyPurchasers(name);
     }
 
+    private void attachObserver(Purchaser purchaser) {
+        list.add(purchaser);
+    }
+
+    private void notifyPurchasers(String newNewsPaper) {
+        for (Purchaser x : list) {
+            x.getNotification(newNewsPaper);
+        }
+    }
+
+    public List<Purchaser> getList() {
+        return list;
+    }
 
     public Map<String, List<Purchaser>> getMap() {
         return map;

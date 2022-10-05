@@ -1,6 +1,6 @@
 package com.solvd.app.patterns.creational.builder.builders;
 
-import com.solvd.app.patterns.creational.builder.Movie.Lor;
+import com.solvd.app.patterns.creational.builder.movie.Lor;
 import com.solvd.app.patterns.creational.builder.characters.Dwarf;
 import com.solvd.app.patterns.creational.builder.characters.Elf;
 import com.solvd.app.patterns.creational.builder.characters.Human;

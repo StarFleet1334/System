@@ -1,6 +1,6 @@
 package com.solvd.app.patterns.creational.builder;
 
-import com.solvd.app.patterns.creational.builder.Movie.Lor;
+import com.solvd.app.patterns.creational.builder.movie.Lor;
 import com.solvd.app.patterns.creational.builder.builders.*;
 
 public class Main {

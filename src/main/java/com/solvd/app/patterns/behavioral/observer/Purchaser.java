@@ -7,4 +7,8 @@ public interface Purchaser {
     void addToWishList(String name);
 
     List<String> getNewsPapers();
+
+    default void getNotification(String newPaper) {
+        System.out.println("NewsPaper called: " + newPaper + " has just been realised.");
+    }
 }

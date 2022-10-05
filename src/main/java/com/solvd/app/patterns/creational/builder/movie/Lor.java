@@ -1,4 +1,4 @@
-package com.solvd.app.patterns.creational.builder.Movie;
+package com.solvd.app.patterns.creational.builder.movie;
 
 import com.solvd.app.patterns.creational.builder.characters.Dwarf;
 import com.solvd.app.patterns.creational.builder.characters.Elf;
