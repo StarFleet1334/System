@@ -1,8 +1,7 @@
-package com.solvd.app.patterns.creational.factory;
+package com.solvd.app.patterns.creational.factory.test;
 
 public class Main {
     public static void main(String[] args) {
-        // Modify
         Battle battle = new GeneralAction();
         battle.forward();
     }

@@ -1,4 +1,4 @@
-package com.solvd.app.patterns.creational.factory;
+package com.solvd.app.patterns.creational.factory.test;
 
 public abstract class Battle {
 
