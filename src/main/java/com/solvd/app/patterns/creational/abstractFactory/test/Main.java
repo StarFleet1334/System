@@ -1,4 +1,4 @@
-package com.solvd.app.patterns.creational.abstractFactory;
+package com.solvd.app.patterns.creational.abstractFactory.test;
 
 public class Main {
     public static void main(String[] args) {
